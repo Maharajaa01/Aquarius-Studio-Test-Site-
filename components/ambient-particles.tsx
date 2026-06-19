@@ -9,7 +9,7 @@ interface Particle {
   driftAmp: number
   phase: number
   maxOpacity: number
-  isRed: boolean
+  isGold: boolean
 }
 
 // Deterministic seeded random — avoids SSR/client hydration mismatch on init
@@ -27,7 +27,7 @@ function createParticles(n: number): Particle[] {
     driftAmp: 0.00004 + seeded(i, 4) * 0.00008,
     phase: seeded(i, 5) * Math.PI * 2,
     maxOpacity: 0.04 + seeded(i, 6) * 0.09,
-    isRed: seeded(i, 7) > 0.76,
+    isGold: seeded(i, 7) > 0.76,
   }))
 }
 
@@ -73,8 +73,8 @@ export default function AmbientParticles({ count = 20 }: { count?: number }) {
 
         ctx.beginPath()
         ctx.arc(p.x * canvas.width, p.y * canvas.height, p.size, 0, Math.PI * 2)
-        ctx.fillStyle = p.isRed
-          ? `rgba(196,30,58,${a})`
+        ctx.fillStyle = p.isGold
+          ? `rgba(255,179,0,${a})`
           : `rgba(255,255,255,${a})`
         ctx.fill()
       }

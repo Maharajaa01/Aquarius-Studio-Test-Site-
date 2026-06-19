@@ -1,390 +1,600 @@
 'use client'
 
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { motion, AnimatePresence, useScroll, useTransform, Variants } from 'framer-motion'
+import { ArrowRight, Compass, Sun, Flower, Skull, Flame } from 'lucide-react'
 import { useMagnetic } from '@/hooks/use-magnetic'
 
-const R   = 'var(--brand-red)'
-const RGB = '196, 30, 58'
+// ── Images to rotate in Hero ──
+const slides = [
+  {
+    title: "Realism Tattoo",
+    artist: "Aravind",
+    image: "/Images/hero_artist_sleeve.jpg",
+    details: "Black & grey realism sleeve"
+  },
+  {
+    title: "Japanese Dragon",
+    artist: "Aravind",
+    image: "/Images/hero_client_sleeve.jpg",
+    details: "Custom irezumi layout"
+  },
+  {
+    title: "Fine Line & Floral",
+    artist: "Aswin",
+    image: "/Images/hero_tattoo_collage.jpg",
+    details: "High-precision geometric art"
+  },
+  {
+    title: "Black & Grey Sleeve",
+    artist: "Aravind",
+    image: "/Images/hero_tattoo_machine.jpg",
+    details: "Intricate portraiture & shading"
+  }
+]
 
-// ── Animation variants ───────────────────────────────────────────────────
+// ── Rotating headlines list ──
+const headlines = [
+  "YOUR STORY. INKED FOREVER.",
+  "ART THAT LIVES WITH YOU.",
+  "EVERY TATTOO HAS A STORY.",
+  "WE DON'T COPY. WE CREATE."
+]
 
-const stagger = {
-  hidden:  {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.3 } },
-}
+// ── Floating sketch designs (minimal inline outlines) ──
+const floatingSketches = [
+  {
+    name: "Mandala Sketch",
+    top: "12%",
+    left: "5%",
+    size: 140,
+    rotateSpeed: 100,
+    delay: 0,
+    svg: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="w-full h-full text-white/5">
+        <circle cx="50" cy="50" r="45" strokeDasharray="3 3" />
+        <circle cx="50" cy="50" r="30" />
+        <circle cx="50" cy="50" r="15" />
+        {Array.from({ length: 12 }).map((_, i) => {
+          const angle = (i * 30 * Math.PI) / 180
+          const x2 = (50 + 45 * Math.cos(angle)).toFixed(4)
+          const y2 = (50 + 45 * Math.sin(angle)).toFixed(4)
+          return <line key={i} x1="50" y1="50" x2={x2} y2={y2} />
+        })}
+        {Array.from({ length: 8 }).map((_, i) => {
+          const angle = (i * 45 * Math.PI) / 180
+          const cx = (50 + 30 * Math.cos(angle)).toFixed(4)
+          const cy = (50 + 30 * Math.sin(angle)).toFixed(4)
+          return <circle key={i} cx={cx} cy={cy} r="6" />
+        })}
+      </svg>
+    )
+  },
+  {
+    name: "Compass Sketch",
+    top: "65%",
+    left: "15%",
+    size: 110,
+    rotateSpeed: -140,
+    delay: 2,
+    svg: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="w-full h-full text-white/5">
+        <circle cx="50" cy="50" r="42" />
+        <circle cx="50" cy="50" r="40" strokeDasharray="2 2" />
+        <path d="M50 8L54 42L50 46L46 42L50 8Z" fill="currentColor" className="text-white/5" />
+        <path d="M50 92L46 58L50 54L54 58L50 92Z" fill="currentColor" className="text-white/5" />
+        <path d="M92 50L58 54L54 50L58 46L92 50Z" fill="currentColor" className="text-white/5" />
+        <path d="M8 50L42 46L46 50L42 54L8 50Z" fill="currentColor" className="text-white/5" />
+        <circle cx="50" cy="50" r="4" fill="currentColor" className="text-white/10" />
+      </svg>
+    )
+  },
+  {
+    name: "Skull Sketch",
+    top: "22%",
+    left: "40%",
+    size: 90,
+    rotateSpeed: 180,
+    delay: 4,
+    svg: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="w-full h-full text-white/5">
+        <path d="M30 40C30 20 70 20 70 40C70 52 64 56 62 62L60 74H40L38 62C36 56 30 52 30 40Z" />
+        <circle cx="42" cy="42" r="5" />
+        <circle cx="58" cy="42" r="5" />
+        <path d="M47 54L50 50L53 54Z" fill="currentColor" className="text-white/5" />
+        <path d="M44 68H56M44 72H56M48 68V74M52 68V74" />
+      </svg>
+    )
+  },
+  {
+    name: "Rose Sketch",
+    top: "75%",
+    left: "38%",
+    size: 130,
+    rotateSpeed: -90,
+    delay: 1,
+    svg: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="w-full h-full text-white/5">
+        <circle cx="50" cy="50" r="8" />
+        <path d="M50 42C45 42 42 45 42 50C42 55 45 58 50 58C55 58 58 55 58 50" />
+        <path d="M50 34C40 34 34 40 34 50C34 60 40 66 50 66C60 66 66 60 66 50" />
+        <path d="M50 26C35 26 26 35 26 50C26 65 35 74 50 74C65 74 74 65 74 50" />
+        <path d="M50 74C50 74 46 86 52 94M50 82C38 86 36 90 36 90" />
+      </svg>
+    )
+  },
+  {
+    name: "Snake Sketch",
+    top: "5%",
+    left: "26%",
+    size: 100,
+    rotateSpeed: 120,
+    delay: 3,
+    svg: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="w-full h-full text-white/5">
+        <path d="M50 10C55 10 57 15 50 22C43 29 42 37 50 44C58 51 59 59 50 66C41 73 40 81 50 88C55 92 50 94 48 94" />
+        <path d="M50 10L52 6M50 10L48 6" />
+        <circle cx="50" cy="10" r="1.5" fill="currentColor" className="text-white/5" />
+      </svg>
+    )
+  }
+]
 
-const revealUp = {
-  hidden:  { opacity: 0, y: 72 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1.05, ease: [0.16, 1, 0.3, 1] as const } },
-}
+// ── Particle details for canvas smoke ──
+class SmokeParticle {
+  x: number
+  y: number
+  vx: number
+  vy: number
+  life: number
+  maxLife: number
+  size: number
+  alpha: number
+  rotation: number
+  rotationSpeed: number
 
-function fadeUp(delay: number) {
-  return {
-    initial:    { opacity: 0, y: 28 },
-    animate:    { opacity: 1, y: 0 },
-    transition: { duration: 0.85, delay, ease: [0.25, 0.46, 0.45, 0.94] as const },
+  constructor(x: number, y: number) {
+    this.x = x
+    this.y = y
+    this.vx = (Math.random() - 0.5) * 0.3
+    this.vy = -0.2 - Math.random() * 0.3
+    this.life = 0
+    this.maxLife = 150 + Math.random() * 120
+    this.size = 40 + Math.random() * 60
+    this.alpha = 0.02 + Math.random() * 0.04
+    this.rotation = Math.random() * Math.PI * 2
+    this.rotationSpeed = (Math.random() - 0.5) * 0.005
+  }
+
+  update() {
+    this.x += this.vx
+    this.y += this.vy
+    this.rotation += this.rotationSpeed
+    this.life++
+
+    const progress = this.life / this.maxLife
+    if (progress < 0.25) {
+      this.alpha = (progress / 0.25) * 0.06
+    } else {
+      this.alpha = (1 - progress) * 0.06
+    }
+    this.size += 0.25
   }
 }
 
-const stats = [
-  { value: '3000+', label: 'Tattoos Done',   accent: true  },
-  { value: '5+',    label: 'Master Artists', accent: false },
-  { value: '100%',  label: 'Safe & Hygienic', accent: false },
-]
-
-// ── Component ────────────────────────────────────────────────────────────
+// ── Letter Animations for Ink Reveal ──
+const letterVariants: Variants = {
+  initial: {
+    opacity: 0,
+    filter: 'blur(10px) brightness(0.1) drop-shadow(0 0 12px rgba(139,0,0,0.6))',
+    scale: 1.25,
+    y: 8
+  },
+  animate: {
+    opacity: 1,
+    filter: 'blur(0px) brightness(1) drop-shadow(0 0 0px rgba(0,0,0,0))',
+    scale: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 110,
+      damping: 14
+    }
+  },
+  exit: {
+    opacity: 0,
+    filter: 'blur(6px) brightness(0.2)',
+    scale: 0.9,
+    y: -8,
+    transition: {
+      duration: 0.35,
+      ease: 'easeIn'
+    }
+  }
+}
 
 export default function HeroSection() {
+  const [headlineIndex, setHeadlineIndex] = useState(0)
+  const [slideIndex, setSlideIndex] = useState(0)
+  
+  const smokeCanvasRef = useRef<HTMLCanvasElement>(null)
+  const ctaMag = useMagnetic(0.35)
   const { scrollY } = useScroll()
 
-  // Parallax: background glows drift upward slower than the page
-  const glow1Y = useTransform(scrollY, [0, 700], [0, -80])
-  const glow2Y = useTransform(scrollY, [0, 700], [0, -40])
-  const glow1O = useTransform(scrollY, [0, 500], [1, 0.35])
+  // Parallax transform variables
+  const backgroundY = useTransform(scrollY, [0, 900], [0, -120])
+  const textParallaxY = useTransform(scrollY, [0, 900], [0, 80])
+  const imageParallaxY = useTransform(scrollY, [0, 900], [0, -60])
 
-  // Magnetic hover for primary CTA
-  const ctaMag = useMagnetic(0.36)
+  // Headline rotation (4 seconds)
+  useEffect(() => {
+    const headlineTimer = setInterval(() => {
+      setHeadlineIndex((prev) => (prev + 1) % headlines.length)
+    }, 4000)
+    return () => clearInterval(headlineTimer)
+  }, [])
+
+  // Showcase slideshow rotation (4 seconds)
+  useEffect(() => {
+    const slideTimer = setInterval(() => {
+      setSlideIndex((prev) => (prev + 1) % slides.length)
+    }, 4000)
+    return () => clearInterval(slideTimer)
+  }, [])
+
+  // Canvas-based cinematic smoke simulation
+  useEffect(() => {
+    const canvas = smokeCanvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    let animationFrameId: number
+    const particles: SmokeParticle[] = []
+    
+    const handleResize = () => {
+      canvas.width = canvas.parentElement?.clientWidth || window.innerWidth
+      canvas.height = canvas.parentElement?.clientHeight || window.innerHeight
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize, { passive: true })
+
+    const tick = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      
+      // Spawn new particles slowly
+      if (Math.random() < 0.05 && particles.length < 35) {
+        const spawnX = Math.random() * canvas.width
+        const spawnY = canvas.height + 20
+        particles.push(new SmokeParticle(spawnX, spawnY))
+      }
+
+      // Update and draw particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i]
+        p.update()
+
+        if (p.life >= p.maxLife || p.alpha <= 0 || p.y < -50) {
+          particles.splice(i, 1)
+          continue
+        }
+
+        ctx.save()
+        ctx.translate(p.x, p.y)
+        ctx.rotate(p.rotation)
+        
+        // Soft round smoke gradient
+        const radGrd = ctx.createRadialGradient(0, 0, 0, 0, 0, p.size)
+        radGrd.addColorStop(0, `rgba(20, 20, 20, ${p.alpha})`)
+        radGrd.addColorStop(0.5, `rgba(15, 15, 15, ${p.alpha * 0.4})`)
+        radGrd.addColorStop(1, 'rgba(0, 0, 0, 0)')
+
+        ctx.fillStyle = radGrd
+        ctx.beginPath()
+        ctx.arc(0, 0, p.size, 0, Math.PI * 2)
+        ctx.fill()
+        ctx.restore()
+      }
+
+      animationFrameId = requestAnimationFrame(tick)
+    }
+    tick()
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      cancelAnimationFrame(animationFrameId)
+    }
+  }, [])
 
   return (
     <section
       id="home"
-      className="relative min-h-screen bg-black flex flex-col justify-center overflow-hidden"
+      className="relative w-full min-h-screen bg-[#050505] flex items-center overflow-hidden z-10 select-none"
     >
+      
+      {/* ── Layer 1: Drifting smoke canvas in background ── */}
+      <canvas
+        ref={smokeCanvasRef}
+        className="absolute inset-0 w-full h-full pointer-events-none z-[11] opacity-70"
+      />
 
-      {/* ── BG: primary crimson glow — bottom-left, parallax ── */}
+      {/* ── Layer 2: Moving luxury film grain ── */}
+      <div className="absolute inset-0 luxury-grain pointer-events-none z-[12]" />
+
+      {/* ── Layer 3: Glowing parallax background blur elements ── */}
       <motion.div
         aria-hidden="true"
-        className="absolute pointer-events-none rounded-full"
+        className="absolute pointer-events-none rounded-full blur-[140px] opacity-[0.14] z-[10]"
         style={{
-          y: glow1Y,
-          opacity: glow1O,
-          width:  'min(88vw, 980px)',
-          height: 'min(88vw, 980px)',
-          bottom: '-28%',
-          left:   '-22%',
-          background: `radial-gradient(circle, rgba(${RGB},0.22) 0%, rgba(${RGB},0.07) 40%, transparent 68%)`,
+          width: '500px',
+          height: '500px',
+          background: 'radial-gradient(circle, #D4AF37 0%, transparent 70%)',
+          bottom: '-10%',
+          left: '-10%',
+          y: backgroundY
         }}
-        animate={{ scale: [1, 1.12, 1] }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
       />
-
-      {/* ── BG: secondary glow — top-right, slower parallax ── */}
       <motion.div
         aria-hidden="true"
-        className="absolute pointer-events-none rounded-full"
+        className="absolute pointer-events-none rounded-full blur-[160px] opacity-[0.11] z-[10]"
         style={{
-          y: glow2Y,
-          width:  'min(58vw, 680px)',
-          height: 'min(58vw, 680px)',
-          top:   '-18%',
-          right: '-14%',
-          background: `radial-gradient(circle, rgba(${RGB},0.11) 0%, rgba(${RGB},0.03) 50%, transparent 70%)`,
-        }}
-        animate={{ scale: [1, 1.08, 1], opacity: [0.5, 0.85, 0.5] }}
-        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
-      />
-
-      {/* ── Grain / film-noise texture ── */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          opacity: 0.038,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")`,
-          backgroundRepeat: 'repeat',
-          backgroundSize: '175px 175px',
+          width: '450px',
+          height: '450px',
+          background: 'radial-gradient(circle, #8B0000 0%, transparent 70%)',
+          top: '-10%',
+          right: '25%',
+          y: useTransform(scrollY, [0, 900], [0, -40])
         }}
       />
 
-      {/* ── Subtle grid overlay ── */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          backgroundImage: [
-            'linear-gradient(rgba(255,255,255,0.013) 1px, transparent 1px)',
-            'linear-gradient(90deg, rgba(255,255,255,0.013) 1px, transparent 1px)',
-          ].join(', '),
-          backgroundSize: '72px 72px',
-        }}
-      />
+      {/* ── Layer 4: Slow floating tattoo sketches ── */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-[11]">
+        {floatingSketches.map((sketch, idx) => (
+          <motion.div
+            key={idx}
+            className="absolute hidden md:block"
+            style={{
+              top: sketch.top,
+              left: sketch.left,
+              width: sketch.size,
+              height: sketch.size
+            }}
+            animate={{
+              y: [0, -25, 0],
+              x: [0, 12, 0],
+              rotate: [0, 8, 0]
+            }}
+            transition={{
+              duration: 10 + idx * 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: sketch.delay
+            }}
+          >
+            {sketch.svg}
+          </motion.div>
+        ))}
+      </div>
 
-      {/* ── Left-edge accent line ── */}
-      <div
-        aria-hidden="true"
-        className="absolute left-6 lg:left-10 top-0 bottom-0 w-px pointer-events-none z-[1] hidden lg:block"
-        style={{ background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.07) 30%, rgba(255,255,255,0.07) 70%, transparent)' }}
-      />
+      {/* ── SPLIT HERO LAYOUT ── */}
+      <div className="w-full max-w-7xl mx-auto px-6 lg:px-10 py-24 md:py-32 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-20">
+        
+        {/* Left Side: Emotional Messaging & Headlines */}
+        <motion.div
+          className="lg:col-span-6 flex flex-col justify-center text-left"
+          style={{ y: textParallaxY }}
+        >
+          {/* Tagline */}
+          <motion.div
+            initial={{ opacity: 0, x: -15 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="inline-flex items-center gap-2 mb-6"
+          >
+            <div className="h-px w-8 bg-[#D4AF37]" />
+            <span className="text-[0.62rem] tracking-[0.3em] font-bold text-[#D4AF37] uppercase">
+              Aquarius Luxury Tattoo Studio
+            </span>
+          </motion.div>
 
-      {/* ── SVG: ink-draw decorative strokes ── */}
-      <svg
-        aria-hidden="true"
-        className="absolute right-0 top-0 w-full h-full pointer-events-none z-[1]"
-        viewBox="0 0 1440 900"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        {/* Long ink stroke — draws itself on load */}
-        <motion.path
-          d="M 1260 -60 Q 1120 200 1320 450 Q 1450 620 1220 840 Q 1060 970 1140 1080"
-          stroke={`rgba(${RGB},0.30)`}
-          strokeWidth="1.2"
-          fill="none"
-          strokeLinecap="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{
-            pathLength: { duration: 3.8, delay: 1.2, ease: 'easeInOut' },
-            opacity:    { duration: 0.8, delay: 1.2 },
-          }}
-        />
-        {/* Secondary stroke */}
-        <motion.path
-          d="M 1390 80 Q 1240 300 1400 540"
-          stroke="rgba(255,255,255,0.07)"
-          strokeWidth="0.8"
-          fill="none"
-          strokeLinecap="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{
-            pathLength: { duration: 2.5, delay: 2.2, ease: 'easeInOut' },
-            opacity:    { duration: 0.8, delay: 2.2 },
-          }}
-        />
-        {/* Outer circle — draws itself */}
-        <motion.circle
-          cx="1330" cy="210" r="130"
-          stroke={`rgba(${RGB},0.12)`}
-          strokeWidth="0.6"
-          fill="none"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{
-            pathLength: { duration: 4.5, delay: 0.8, ease: 'easeInOut' },
-            opacity:    { duration: 1, delay: 0.8 },
-          }}
-        />
-        {/* Inner circle */}
-        <motion.circle
-          cx="1330" cy="210" r="68"
-          stroke="rgba(255,255,255,0.04)"
-          strokeWidth="0.4"
-          fill="none"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{
-            pathLength: { duration: 3.5, delay: 1.5, ease: 'easeInOut' },
-            opacity:    { duration: 1, delay: 1.5 },
-          }}
-        />
-      </svg>
-
-      {/* ── Main content ── */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full pt-36 pb-24 lg:pt-44 lg:pb-28">
-        <div className="flex flex-col lg:flex-row lg:items-center">
-
-          {/* Left column */}
-          <div className="flex-1 lg:pr-20">
-
-            {/* Eyebrow */}
-            <motion.div {...fadeUp(0.1)} className="flex items-center gap-4 mb-10">
-              <div className="h-px w-10 flex-shrink-0" style={{ background: R }} />
-              <span className="text-[0.58rem] tracking-[0.40em] uppercase text-white/40 font-light">
-                Jayanagar · Bangalore · Est. 2019
-              </span>
-            </motion.div>
-
-            {/* Headline — staggered mask-reveal */}
-            <motion.div variants={stagger} initial="hidden" animate="visible">
-              <h1>
-                <div className="overflow-hidden">
-                  <motion.span
-                    variants={revealUp}
-                    className="block leading-[0.90] font-light text-white"
-                    style={{
-                      fontFamily: 'var(--font-display)',
-                      fontStyle: 'italic',
-                      fontSize: 'clamp(3.2rem, 8.2vw, 8.4rem)',
-                    }}
-                  >
-                    Where Skin
-                  </motion.span>
-                </div>
-                <div className="overflow-hidden">
-                  <motion.span
-                    variants={revealUp}
-                    className="block leading-[0.90] font-semibold text-white"
-                    style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: 'clamp(3.2rem, 8.2vw, 8.4rem)',
-                    }}
-                  >
-                    Becomes Art<span style={{ color: R }}>.</span>
-                  </motion.span>
-                </div>
-              </h1>
-            </motion.div>
-
-            {/* Subtext */}
-            <motion.p
-              {...fadeUp(0.88)}
-              className="mt-8 text-white/45 text-[0.95rem] lg:text-[1.02rem] font-light leading-[1.8] max-w-[400px]"
-            >
-              Premium tattoo &amp; piercing artistry in the heart of Bangalore.
-              Every line placed with intention. Every piece, yours forever.
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div {...fadeUp(1.08)} className="mt-10 flex flex-col sm:flex-row gap-4">
-
-              {/* Primary — magnetic */}
+          {/* Rotating Headline with Ink Reveal */}
+          <div className="min-h-[145px] sm:min-h-[185px] lg:min-h-[220px] flex items-center relative">
+            <AnimatePresence mode="wait">
               <motion.div
-                ref={ctaMag.ref}
-                animate={{ x: ctaMag.offset.x, y: ctaMag.offset.y }}
-                transition={{ type: 'spring', stiffness: 180, damping: 16, mass: 0.1 }}
-                onMouseMove={ctaMag.onMouseMove}
-                onMouseLeave={ctaMag.onMouseLeave}
-                className="inline-flex"
+                key={headlineIndex}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="flex flex-wrap gap-x-4 gap-y-1 sm:gap-y-3"
               >
-                <Link
-                  href="#contact"
-                  className="group hero-cta-primary inline-flex items-center justify-center gap-3 px-8 py-4 text-[0.65rem] tracking-[0.26em] uppercase font-medium text-white"
-                  style={{ background: R }}
-                >
-                  <span>Book Your Session</span>
-                  <ArrowRight
-                    size={13}
-                    className="group-hover:translate-x-1 transition-transform duration-300 flex-shrink-0"
-                  />
-                </Link>
+                {headlines[headlineIndex].split(" ").map((word, wordIdx) => (
+                  <span key={wordIdx} className="inline-block whitespace-nowrap">
+                    {word.split("").map((char, charIdx) => {
+                      const isSpecial = char === '.'
+                      return (
+                        <motion.span
+                          key={charIdx}
+                          variants={letterVariants}
+                          className={`inline-block font-black tracking-tight text-[clamp(2.1rem,5.5vw,4.8rem)] leading-[0.95] ${
+                            isSpecial ? 'text-[#D4AF37]' : 'text-[#F5F5F5]'
+                          }`}
+                          style={{ fontFamily: 'var(--font-display)' }}
+                          transition={{
+                            delay: (wordIdx * 4 + charIdx) * 0.035
+                          }}
+                        >
+                          {char}
+                        </motion.span>
+                      )
+                    })}
+                  </span>
+                ))}
               </motion.div>
+            </AnimatePresence>
+          </div>
 
-              {/* Secondary */}
+          {/* Subheadline */}
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.95 }}
+            className="mt-6 text-[#9A9A9A] text-sm md:text-base font-light leading-[1.8] max-w-lg"
+          >
+            Custom tattoos crafted by Bangalore's elite artists. From fine line designs to full sleeve masterpieces, every piece is designed exclusively for you.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.95, duration: 0.8 }}
+            className="mt-10 flex flex-col sm:flex-row gap-5 items-stretch sm:items-center"
+          >
+            {/* Primary CTA (Magnetic Interaction) */}
+            <motion.div
+              ref={ctaMag.ref}
+              animate={{ x: ctaMag.offset.x, y: ctaMag.offset.y }}
+              transition={{ type: 'spring', stiffness: 180, damping: 15, mass: 0.1 }}
+              onMouseMove={ctaMag.onMouseMove}
+              onMouseLeave={ctaMag.onMouseLeave}
+              className="inline-flex"
+            >
               <Link
-                href="/gallery"
-                className="hero-cta-secondary inline-flex items-center justify-center px-8 py-4 text-[0.65rem] tracking-[0.26em] uppercase font-medium text-white/60 hover:text-white"
-                style={{ border: '1px solid rgba(255,255,255,0.17)' }}
+                href="#contact"
+                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4.5 bg-[#D4AF37] text-[#050505] text-[0.65rem] tracking-[0.28em] uppercase font-bold hover:shadow-[0_0_35px_rgba(212,175,55,0.45)] hover:scale-[1.03] transition-all duration-300 w-full sm:w-auto"
               >
-                View Portfolio
+                <span>Book Consultation</span>
+                <ArrowRight
+                  size={14}
+                  className="group-hover:translate-x-1.5 transition-transform duration-300 flex-shrink-0 stroke-[2.5px]"
+                />
               </Link>
             </motion.div>
 
-            {/* Stats */}
-            <motion.div
-              {...fadeUp(1.32)}
-              className="mt-14 pt-8 grid grid-cols-3 gap-8 max-w-[380px]"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
+            {/* Secondary CTA (Animated border glow) */}
+            <Link
+              href="#showcase"
+              className="relative group px-8 py-4.5 overflow-hidden border border-[#D4AF37]/20 hover:border-[#D4AF37] transition-all duration-500 flex items-center justify-center"
             >
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <p
-                    className="text-[2.1rem] lg:text-[2.5rem] font-light leading-none"
-                    style={{ fontFamily: 'var(--font-display)', color: s.accent ? R : 'white' }}
+              {/* Border shine animation */}
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[#D4AF37]/15 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out" />
+              <span className="text-[0.65rem] tracking-[0.28em] uppercase font-semibold text-[#9A9A9A] group-hover:text-white transition-colors duration-300">
+                Explore Portfolio
+              </span>
+            </Link>
+          </motion.div>
+        </motion.div>
+
+        {/* Right Side: Visual Showcase Slideshow */}
+        <motion.div
+          className="lg:col-span-6 w-full flex justify-center lg:justify-end"
+          style={{ y: imageParallaxY }}
+        >
+          <div className="relative w-full max-w-[500px] aspect-[4/5] sm:aspect-[3/4] bg-[#0c0c0c] border border-white/10 p-2.5 rounded-sm overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.8)] group/showcase hover:border-[#D4AF37]/50 transition-colors duration-500">
+            
+            {/* Slideshow image container */}
+            <div className="relative w-full h-full overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={slideIndex}
+                  initial={{ opacity: 0, scale: 1.12 }}
+                  animate={{ opacity: 1, scale: 1.05 }}
+                  exit={{ opacity: 0, scale: 1.0 }}
+                  transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="absolute inset-0 w-full h-full"
+                >
+                  <img
+                    src={slides[slideIndex].image}
+                    alt={slides[slideIndex].title}
+                    className="w-full h-full object-cover transition-transform duration-[4000ms] ease-out scale-100 group-hover/showcase:scale-105"
+                  />
+                  {/* Subtle darkening overlays */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-black/10 group-hover/showcase:bg-black/0 transition-colors duration-500" />
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Slider details/captions at bottom */}
+              <div className="absolute bottom-6 left-6 right-6 z-30 flex justify-between items-end">
+                <div>
+                  <motion.p
+                    key={`cat-${slideIndex}`}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="text-[0.62rem] tracking-[0.25em] text-[#D4AF37] uppercase font-bold mb-1"
                   >
-                    {s.value}
-                  </p>
-                  <p className="mt-1.5 text-[0.56rem] tracking-[0.32em] uppercase text-white/32">
-                    {s.label}
-                  </p>
+                    {slides[slideIndex].title}
+                  </motion.p>
+                  <motion.h4
+                    key={`det-${slideIndex}`}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="text-white text-lg font-bold font-display"
+                  >
+                    {slides[slideIndex].details}
+                  </motion.h4>
                 </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Right column — placeholder circle (desktop only) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.5, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const }}
-            className="hidden lg:flex flex-shrink-0 items-center justify-center"
-          >
-            <div className="relative">
-
-              {/* Breathing outer glow */}
-              <motion.div
-                aria-hidden="true"
-                className="absolute inset-0 rounded-full pointer-events-none"
-                style={{ transform: 'scale(1.2)' }}
-                animate={{
-                  boxShadow: [
-                    `0 0 60px rgba(${RGB},0.18), 0 0 120px rgba(${RGB},0.07)`,
-                    `0 0 95px rgba(${RGB},0.30), 0 0 190px rgba(${RGB},0.12)`,
-                    `0 0 60px rgba(${RGB},0.18), 0 0 120px rgba(${RGB},0.07)`,
-                  ],
-                }}
-                transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
-              />
-
-              {/*
-                ── PLACEHOLDER ──
-                When studio images are ready, replace the inner <div> with:
-                <Image src="/studio-portrait.jpg" fill className="object-cover" alt="Studio" />
-              */}
-              <div
-                className="relative w-[300px] h-[300px] xl:w-[355px] xl:h-[355px] rounded-full overflow-hidden flex items-center justify-center"
-                style={{
-                  background: `linear-gradient(148deg, rgba(${RGB},0.10) 0%, rgba(0,0,0,0.65) 55%, rgba(${RGB},0.04) 100%)`,
-                  border: `1px solid rgba(${RGB},0.20)`,
-                }}
-              >
-                <div className="flex flex-col items-center gap-3 select-none">
-                  <span
-                    className="text-[5rem] leading-none font-light"
-                    style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', color: `rgba(255,255,255,0.055)` }}
-                  >
-                    A
+                <div className="text-right">
+                  <span className="text-[0.55rem] tracking-[0.15em] text-[#9A9A9A] uppercase block mb-1">
+                    Art By
                   </span>
-                  <div className="h-px w-9" style={{ background: `rgba(${RGB},0.25)` }} />
-                  <p className="text-[0.52rem] tracking-[0.38em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>
-                    Studio · Work
-                  </p>
+                  <motion.span
+                    key={`art-${slideIndex}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-white text-sm font-semibold tracking-wide"
+                  >
+                    {slides[slideIndex].artist}
+                  </motion.span>
                 </div>
               </div>
 
-              {/* Glowing accent dot */}
-              <motion.div
-                className="absolute top-4 right-5 w-2.5 h-2.5 rounded-full"
-                style={{ background: R, boxShadow: `0 0 16px rgba(${RGB},0.95)` }}
-                animate={{ scale: [1, 1.55, 1], opacity: [0.85, 1, 0.85] }}
-                transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
-              />
-              {/* Hollow ring dot */}
-              <motion.div
-                className="absolute bottom-9 left-2.5 w-2 h-2 rounded-full"
-                style={{ border: `1.5px solid rgba(${RGB},0.45)` }}
-                animate={{ scale: [1, 1.4, 1], opacity: [0.45, 0.78, 0.45] }}
-                transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut', delay: 1.8 }}
-              />
+              {/* Interactive slide counters/ticks */}
+              <div className="absolute top-6 right-6 z-30 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1.5 border border-white/5 rounded-sm">
+                {slides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setSlideIndex(i)}
+                    className="group/btn relative w-6 h-1 bg-white/20 transition-all duration-300"
+                    aria-label={`Go to slide ${i + 1}`}
+                  >
+                    {slideIndex === i && (
+                      <motion.div
+                        layoutId="activeSlideTick"
+                        className="absolute inset-0 bg-[#D4AF37]"
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                ))}
+              </div>
             </div>
-          </motion.div>
 
+            {/* Corner styling accents */}
+            <div className="absolute top-2 left-2 w-5 h-5 border-t border-l border-white/20 pointer-events-none group-hover/showcase:border-[#D4AF37]/50 transition-colors duration-500" />
+            <div className="absolute bottom-2 right-2 w-5 h-5 border-b border-r border-white/20 pointer-events-none group-hover/showcase:border-[#D4AF37]/50 transition-colors duration-500" />
+          </div>
+        </motion.div>
+
+      </div>
+
+      {/* Scroll indicator with gold highlight */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 hidden md:flex flex-col items-center gap-2">
+        <span className="text-[0.52rem] tracking-[0.4em] uppercase text-[#9A9A9A]">
+          SCROLL TO EXPLORE
+        </span>
+        <div className="w-px h-10 bg-white/10 relative overflow-hidden">
+          <motion.div
+            className="absolute left-0 w-full h-[40%] bg-[#D4AF37]"
+            animate={{ top: ['0%', '150%'] }}
+            transition={{ duration: 2.0, repeat: Infinity, ease: "easeInOut" }}
+          />
         </div>
       </div>
 
-      {/* Scroll indicator — animated traveling line */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.4, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-2.5"
-      >
-        <span className="text-[0.52rem] tracking-[0.48em] uppercase" style={{ color: 'rgba(255,255,255,0.22)' }}>
-          Scroll
-        </span>
-        <div
-          className="relative w-px h-12 overflow-hidden"
-          style={{ background: 'rgba(255,255,255,0.08)' }}
-        >
-          <motion.div
-            className="absolute left-0 w-full"
-            style={{ height: '45%', background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.55))' }}
-            animate={{ top: ['0%', '160%'] }}
-            transition={{ duration: 1.9, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </div>
-      </motion.div>
     </section>
   )
 }

@@ -83,7 +83,7 @@ export default function Navigation({ isScrolled }: NavigationProps) {
               <Link
                 href="#contact"
                 className="inline-flex items-center px-6 py-2.5 text-[0.62rem] tracking-[0.24em] uppercase font-medium nav-cta-glow"
-                style={{ color: 'var(--brand-red)', border: '1px solid var(--brand-red)' }}
+                style={{ color: 'var(--brand-gold)', border: '1px solid var(--brand-gold)' }}
               >
                 Book Now
               </Link>
@@ -149,8 +149,8 @@ export default function Navigation({ isScrolled }: NavigationProps) {
                   href="#contact"
                   className="inline-flex items-center px-7 py-3 text-[0.62rem] tracking-[0.24em] uppercase font-medium text-white"
                   style={{
-                    background: 'var(--brand-red)',
-                    boxShadow: '0 0 22px rgba(196, 30, 58, 0.45)',
+                    background: 'var(--brand-gold)',
+                    boxShadow: '0 0 22px rgba(255, 179, 0, 0.45)',
                   }}
                   onClick={() => setIsOpen(false)}
                 >

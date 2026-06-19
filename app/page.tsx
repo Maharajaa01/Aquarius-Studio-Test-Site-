@@ -9,10 +9,12 @@ import CustomCursor from '@/components/custom-cursor'
 import TattooShowcase from '@/components/tattoo-showcase'
 import StatsSection from '@/components/stats-section'
 import StylesSection from '@/components/styles-section'
+import ArtistSpotlight from '@/components/artist-spotlight'
 import StudioSection from '@/components/studio-section'
 import ServicesSection from '@/components/services-section'
 import TestimonialsSection from '@/components/testimonials-section'
 import FAQSection from '@/components/faq-section'
+import BookingCTA from '@/components/booking-cta'
 import ContactSection from '@/components/contact-section'
 import Footer from '@/components/footer'
 import FloatingBookButton from '@/components/floating-book-button'
@@ -43,6 +45,7 @@ export default function Home() {
       <TattooShowcase />
       <StatsSection />
       <StylesSection />
+      <ArtistSpotlight />
       
       <BehindTheInk />
       
@@ -56,6 +59,7 @@ export default function Home() {
       <FAQSection />
       <FinancialFlexibility />
       
+      <BookingCTA />
       <ContactSection />
       <Footer />
       <FloatingBookButton />

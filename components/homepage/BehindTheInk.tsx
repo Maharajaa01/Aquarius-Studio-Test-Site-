@@ -56,7 +56,7 @@ export default function BehindTheInk() {
           {/* Animated ink underline */}
           <motion.div
             className="h-[3px] mx-auto mt-6"
-            style={{ background: 'var(--brand-red)' }}
+            style={{ background: 'var(--brand-gold)' }}
             initial={{ width: 0, opacity: 0 }}
             whileInView={{ width: '6rem', opacity: 1 }}
             viewport={{ once: true }}
@@ -115,11 +115,11 @@ export default function BehindTheInk() {
               {/* Corner accent that grows on hover */}
               <div
                 className="absolute top-0 left-0 w-0 h-0 group-hover:w-8 group-hover:h-8 transition-all duration-500"
-                style={{ borderTop: '2px solid var(--brand-red)', borderLeft: '2px solid var(--brand-red)' }}
+                style={{ borderTop: '2px solid var(--brand-gold)', borderLeft: '2px solid var(--brand-gold)' }}
               />
               <div
                 className="absolute bottom-0 right-0 w-0 h-0 group-hover:w-8 group-hover:h-8 transition-all duration-500"
-                style={{ borderBottom: '2px solid var(--brand-red)', borderRight: '2px solid var(--brand-red)' }}
+                style={{ borderBottom: '2px solid var(--brand-gold)', borderRight: '2px solid var(--brand-gold)' }}
               />
             </motion.div>
           ))}

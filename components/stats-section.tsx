@@ -45,7 +45,7 @@ function StatCard({
         className="text-5xl md:text-6xl font-light mb-2 tabular-nums"
         style={{ fontFamily: 'var(--font-display)' }}
       >
-        <span className={accent ? 'text-[var(--brand-red)]' : 'text-accent'}>
+        <span className={accent ? 'text-[var(--brand-gold)]' : 'text-accent'}>
           {count}{suffix}
         </span>
       </p>
@@ -72,7 +72,7 @@ export default function StatsSection() {
         {/* Ink-line entering animation */}
         <motion.div
           className="h-px mx-auto mb-14"
-          style={{ background: 'var(--brand-red)' }}
+          style={{ background: 'var(--brand-gold)' }}
           initial={{ width: 0, opacity: 0 }}
           whileInView={{ width: '3.5rem', opacity: 1 }}
           viewport={{ once: true }}

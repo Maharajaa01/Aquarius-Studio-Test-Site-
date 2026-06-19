@@ -60,8 +60,8 @@ export const metadata: Metadata = {
     creator: '@aquariustattoo',
   },
   icons: {
-    icon: '/tattoo_studio_logo.jpeg',
-    apple: '/tattoo_studio_logo.jpeg',
+    icon: '/app_logo/tattoo_studio_logo.jpeg',
+    apple: '/app_logo/tattoo_studio_logo.jpeg',
   },
 }
 

@@ -21,7 +21,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <Image
-                src="/tattoo_studio_logo.jpeg"
+                src="/app_logo/tattoo_studio_logo.jpeg"
                 alt="Aquarius Tattoo Logo"
                 width={36}
                 height={36}
