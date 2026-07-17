@@ -66,7 +66,7 @@ const statsData = [
 
 export default function StatsSection() {
   return (
-    <section className="py-16 md:py-24 bg-background border-t border-b border-border overflow-hidden">
+    <section className="py-16 md:py-24 bg-[#020202] esoteric-crack-bg border-t border-b border-[var(--brand-gold)]/10 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Ink-line entering animation */}

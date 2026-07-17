@@ -57,6 +57,7 @@ export default function FAQSection() {
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full px-6 py-4 flex items-center justify-between hover:bg-background transition-colors text-left group"
+                suppressHydrationWarning
               >
                 <h3 className="font-semibold text-sm md:text-base group-hover:text-accent transition-colors">
                   {faq.question}

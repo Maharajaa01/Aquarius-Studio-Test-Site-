@@ -45,16 +45,28 @@ export default function Navigation({ isScrolled }: NavigationProps) {
         <div className="flex items-center justify-between h-20">
 
           {/* Wordmark */}
-          <Link href="/" className="flex flex-col leading-none group" aria-label="Aquarius Tattoo Studio">
-            <span
-              className="text-[1.3rem] font-light tracking-[0.28em] text-white uppercase transition-opacity duration-300 group-hover:opacity-80"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              AQUARIUS
-            </span>
-            <span className="text-[0.52rem] tracking-[0.44em] text-white/38 uppercase font-light mt-[3px]">
-              TATTOO STUDIO
-            </span>
+          <Link href="/" className="flex items-center gap-3 group" aria-label="Aquarius Tattoo Studio">
+            {/* Esoteric Triangle/Eye logo badge */}
+            <div className="relative w-8 h-8 flex items-center justify-center border border-[var(--brand-gold)]/30 rounded-sm rotate-45 group-hover:border-[var(--brand-gold)]/80 transition-colors duration-300">
+              <div className="-rotate-45 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4.5 h-4.5 text-[var(--brand-gold)]">
+                  <polygon points="12,3 3,20 21,20" />
+                  <circle cx="12" cy="13" r="2.5" />
+                  <circle cx="12" cy="13" r="0.75" fill="currentColor" />
+                </svg>
+              </div>
+            </div>
+            <div className="flex flex-col leading-none">
+              <span
+                className="text-[1.15rem] font-black tracking-[0.2em] text-white uppercase transition-opacity duration-300 group-hover:text-[var(--brand-gold)]"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
+                AQUARIUS
+              </span>
+              <span className="text-[0.5rem] tracking-[0.44em] text-[var(--brand-gold)]/60 uppercase font-bold mt-[1px]">
+                TATTOO STUDIO
+              </span>
+            </div>
           </Link>
 
           {/* Desktop links */}
@@ -147,10 +159,10 @@ export default function Navigation({ isScrolled }: NavigationProps) {
               >
                 <Link
                   href="#contact"
-                  className="inline-flex items-center px-7 py-3 text-[0.62rem] tracking-[0.24em] uppercase font-medium text-white"
+                  className="inline-flex items-center px-7 py-3 text-[0.62rem] tracking-[0.24em] uppercase font-bold text-black"
                   style={{
                     background: 'var(--brand-gold)',
-                    boxShadow: '0 0 22px rgba(255, 179, 0, 0.45)',
+                    boxShadow: '0 0 22px rgba(197, 168, 92, 0.45)',
                   }}
                   onClick={() => setIsOpen(false)}
                 >

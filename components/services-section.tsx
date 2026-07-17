@@ -60,22 +60,22 @@ const premiumServices: ServiceData[] = [
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="py-20 md:py-28 bg-[#050505] relative overflow-hidden border-b border-white/5">
+    <section id="services" className="py-20 md:py-28 bg-[#020202] esoteric-crack-bg relative overflow-hidden border-b border-[var(--brand-gold)]/10">
       {/* Background glow highlights */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-r from-[#8B0000]/5 to-transparent blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-r from-[var(--brand-red-accent)]/5 to-transparent blur-[140px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
         
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center mb-16 md:mb-20">
           <div className="flex items-center gap-2 mb-4">
-            <span className="w-5 h-px bg-[#D4AF37]" />
-            <span className="text-[0.62rem] tracking-[0.25em] text-[#D4AF37] uppercase font-bold">
+            <span className="w-5 h-px bg-[var(--brand-gold)]" />
+            <span className="text-[0.62rem] tracking-[0.25em] text-[var(--brand-gold)] uppercase font-bold">
               Creative Solutions
             </span>
-            <span className="w-5 h-px bg-[#D4AF37]" />
+            <span className="w-5 h-px bg-[var(--brand-gold)]" />
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-[#F5F5F5] tracking-tight uppercase mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#F5F5F5] tracking-widest uppercase mb-4 font-display" style={{ fontFamily: 'var(--font-display)' }}>
             Our Services
           </h2>
           <p className="text-[#9A9A9A] max-w-xl text-sm md:text-base font-light leading-relaxed">
@@ -95,21 +95,21 @@ export default function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`group relative flex flex-col justify-between p-8 md:p-10 bg-[#0c0c0c] border ${
-                  isFeatured ? 'border-[#D4AF37]/30 lg:col-span-2' : 'border-white/5'
-                } hover:border-[#D4AF37]/45 hover:shadow-[0_15px_40px_rgba(0,0,0,0.7)] transition-all duration-500 rounded-sm overflow-hidden`}
+                className={`group relative flex flex-col justify-between p-8 md:p-10 bg-[#080808] glowing-occult-border occult-crosshairs ${
+                  isFeatured ? 'lg:col-span-2' : ''
+                } hover:shadow-[0_15px_40px_rgba(197,168,92,0.15)] transition-all duration-500 rounded-sm overflow-hidden`}
               >
                 
                 {/* Background glow trail on hover */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(212,175,55,0.04)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(197,168,92,0.04)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                 <div>
                   {/* Top Tag & Icon */}
                   <div className="flex items-center justify-between mb-8">
-                    <div className="w-12 h-12 bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-[#D4AF37]/40 transition-colors duration-500 rounded-sm">
-                      <Icon className="w-5 h-5 text-[#D4AF37] group-hover:scale-110 transition-transform duration-300" />
+                    <div className="w-12 h-12 bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-[var(--brand-gold)]/40 transition-colors duration-500 rounded-sm">
+                      <Icon className="w-5 h-5 text-[var(--brand-gold)] group-hover:scale-110 transition-transform duration-300" />
                     </div>
-                    <span className="text-[0.55rem] tracking-[0.2em] text-[#D4AF37] uppercase font-bold px-3 py-1 bg-[#D4AF37]/5 border border-[#D4AF37]/20 rounded-sm">
+                    <span className="text-[0.55rem] tracking-[0.2em] text-[var(--brand-gold)] uppercase font-bold px-3 py-1 bg-[var(--brand-gold)]/5 border border-[var(--brand-gold)]/20 rounded-sm">
                       {service.tag}
                     </span>
                   </div>
@@ -126,7 +126,7 @@ export default function ServicesSection() {
                   <ul className="space-y-2.5 border-t border-white/5 pt-6 mb-8">
                     {service.details.map((detail, dIdx) => (
                       <li key={dIdx} className="flex items-center gap-2.5 text-xs text-[#9A9A9A]">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#8B0000] flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-red-accent)] flex-shrink-0" />
                         <span>{detail}</span>
                       </li>
                     ))}
@@ -136,15 +136,15 @@ export default function ServicesSection() {
                 {/* Bottom Arrow Link */}
                 <Link
                   href={service.link}
-                  className="inline-flex items-center gap-2.5 text-[0.65rem] tracking-[0.25em] text-[#D4AF37] uppercase font-bold group-hover:text-white transition-colors mt-auto pt-4"
+                  className="inline-flex items-center gap-2.5 text-[0.65rem] tracking-[0.25em] text-[var(--brand-gold)] uppercase font-bold group-hover:text-white transition-colors mt-auto pt-4"
                 >
                   <span>Explore Service</span>
                   <ArrowRight size={13} className="group-hover:translate-x-1.5 transition-transform duration-300" />
                 </Link>
 
                 {/* Corner Frame Accents */}
-                <div className="absolute top-3 left-3 w-4 h-4 border-t border-l border-white/5 pointer-events-none group-hover:border-[#D4AF37]/30 transition-colors duration-500" />
-                <div className="absolute bottom-3 right-3 w-4 h-4 border-b border-r border-white/5 pointer-events-none group-hover:border-[#D4AF37]/30 transition-colors duration-500" />
+                <div className="absolute top-3 left-3 w-4 h-4 border-t border-l border-[var(--brand-gold)]/10 pointer-events-none group-hover:border-[var(--brand-gold)]/30 transition-colors duration-500" />
+                <div className="absolute bottom-3 right-3 w-4 h-4 border-b border-r border-[var(--brand-gold)]/10 pointer-events-none group-hover:border-[var(--brand-gold)]/30 transition-colors duration-500" />
                 
               </motionEffect.div>
             )
@@ -161,7 +161,7 @@ export default function ServicesSection() {
         >
           <Link
             href="/calculator"
-            className="px-10 py-5 bg-[#D4AF37] text-black font-bold tracking-[0.25em] uppercase hover:shadow-[0_0_35px_rgba(212,175,55,0.45)] hover:scale-[1.03] transition-all duration-300 inline-block text-xs rounded-sm"
+            className="px-10 py-5 bg-[var(--brand-gold)] text-black font-bold tracking-[0.25em] uppercase hover:shadow-[0_0_35px_rgba(197,168,92,0.45)] hover:scale-[1.03] transition-all duration-300 inline-block text-xs rounded-sm"
           >
             Calculate Design Price
           </Link>

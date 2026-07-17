@@ -9,37 +9,49 @@ import { useMagnetic } from '@/hooks/use-magnetic'
 // ── Images to rotate in Hero ──
 const slides = [
   {
-    title: "Realism Tattoo",
-    artist: "Aravind",
-    image: "/Images/hero_artist_sleeve.jpg",
-    details: "Black & grey realism sleeve"
-  },
-  {
-    title: "Japanese Dragon",
-    artist: "Aravind",
-    image: "/Images/hero_client_sleeve.jpg",
-    details: "Custom irezumi layout"
-  },
-  {
-    title: "Fine Line & Floral",
+    title: "Divine Vision",
     artist: "Aswin",
-    image: "/Images/hero_tattoo_collage.jpg",
-    details: "High-precision geometric art"
+    image: "/Images/hero_occult_hands.png",
+    details: "All-seeing eye of providence"
   },
   {
-    title: "Black & Grey Sleeve",
+    title: "Occult Owl",
     artist: "Aravind",
-    image: "/Images/hero_tattoo_machine.jpg",
-    details: "Intricate portraiture & shading"
+    image: "/Images/hero_occult_owl.png",
+    details: "Minerva's alchemical owl"
+  },
+  {
+    title: "Celestial Deity",
+    artist: "Aravind",
+    image: "/Images/hero_occult_deity.png",
+    details: "Golden multi-armed spiritual deity"
+  },
+  {
+    title: "Occult Wolf",
+    artist: "Aswin",
+    image: "/Images/hero_occult_wolf.png",
+    details: "Sacred geometry wolf guide"
+  },
+  {
+    title: "Sacred Geometry",
+    artist: "Aswin",
+    image: "/Images/hero_occult_pattern.png",
+    details: "Esoteric multi-armed geometric patterns"
+  },
+  {
+    title: "Celestial Call",
+    artist: "Aravind",
+    image: "/Images/hero_occult_illustration.png",
+    details: "Alchemical multi-armed illustration"
   }
 ]
 
 // ── Rotating headlines list ──
 const headlines = [
-  "YOUR STORY. INKED FOREVER.",
-  "ART THAT LIVES WITH YOU.",
-  "EVERY TATTOO HAS A STORY.",
-  "WE DON'T COPY. WE CREATE."
+  "ARCANE ARTISTRY. INKED FOREVER.",
+  "SACRED GEOMETRY. SACRED SKIN.",
+  "THE SANCTUM OF SACRED INK.",
+  "WE DON'T COPY. WE CONSECRATE."
 ]
 
 // ── Floating sketch designs (minimal inline outlines) ──
@@ -187,7 +199,7 @@ class SmokeParticle {
 const letterVariants: Variants = {
   initial: {
     opacity: 0,
-    filter: 'blur(10px) brightness(0.1) drop-shadow(0 0 12px rgba(139,0,0,0.6))',
+    filter: 'blur(10px) brightness(0.1) drop-shadow(0 0 12px rgba(197, 168, 92, 0.45))',
     scale: 1.25,
     y: 8
   },
@@ -310,9 +322,8 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative w-full min-h-screen bg-[#050505] flex items-center overflow-hidden z-10 select-none"
+      className="relative w-full min-h-screen lg:h-screen lg:max-h-[100vh] bg-[#020202] esoteric-crack-bg flex flex-col justify-center items-center overflow-y-auto lg:overflow-hidden z-10 select-none py-16 lg:py-10"
     >
-      
       {/* ── Layer 1: Drifting smoke canvas in background ── */}
       <canvas
         ref={smokeCanvasRef}
@@ -325,30 +336,110 @@ export default function HeroSection() {
       {/* ── Layer 3: Glowing parallax background blur elements ── */}
       <motion.div
         aria-hidden="true"
-        className="absolute pointer-events-none rounded-full blur-[140px] opacity-[0.14] z-[10]"
+        className="absolute pointer-events-none rounded-full blur-[140px] opacity-[0.16] z-[10]"
         style={{
-          width: '500px',
-          height: '500px',
-          background: 'radial-gradient(circle, #D4AF37 0%, transparent 70%)',
-          bottom: '-10%',
-          left: '-10%',
+          width: '600px',
+          height: '600px',
+          background: 'radial-gradient(circle, #C5A85C 0%, transparent 70%)',
+          top: '20%',
+          left: '20%',
           y: backgroundY
         }}
       />
-      <motion.div
-        aria-hidden="true"
-        className="absolute pointer-events-none rounded-full blur-[160px] opacity-[0.11] z-[10]"
-        style={{
-          width: '450px',
-          height: '450px',
-          background: 'radial-gradient(circle, #8B0000 0%, transparent 70%)',
-          top: '-10%',
-          right: '25%',
-          y: useTransform(scrollY, [0, 900], [0, -40])
-        }}
-      />
+      
+      {/* ── Layer 4: Floating Deities Flanking & Mobile Watermarks (Pro Illuminate Theme) ── */}
+      {/* Mobile Occult Deity Watermark (centered behind text on phones/tablets) */}
+      <div className="absolute inset-0 flex items-center justify-center lg:hidden opacity-[0.05] pointer-events-none z-[10] mix-blend-screen">
+        <img
+          src="/Images/hero_occult_deity.png"
+          alt="Occult watermark"
+          className="w-[320px] aspect-[4/5] object-contain"
+        />
+      </div>
 
-      {/* ── Layer 4: Slow floating tattoo sketches ── */}
+      {/* Mobile Bottom-Left Deity Frame */}
+      <motion.div
+        className="absolute left-0 bottom-6 w-[120px] sm:w-[150px] aspect-[4/5] pointer-events-none z-10 mix-blend-screen opacity-[0.16] block lg:hidden"
+        animate={{
+          y: [0, -10, 0],
+          rotate: [0, 1.5, 0]
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+        <img
+          src="/Images/hero_occult_deity.png"
+          alt="Occult Deity Mobile"
+          className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(197,168,92,0.1)]"
+        />
+      </motion.div>
+
+      {/* Mobile Bottom-Right Deity Frame */}
+      <motion.div
+        className="absolute right-0 bottom-6 w-[120px] sm:w-[150px] aspect-[4/5] pointer-events-none z-10 mix-blend-screen opacity-[0.20] block lg:hidden"
+        animate={{
+          y: [0, 10, 0],
+          rotate: [0, -1.5, 0]
+        }}
+        transition={{
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.5
+        }}
+      >
+        <img
+          src="/Images/hero_occult_pattern.png"
+          alt="Occult Pattern Mobile"
+          className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(255,255,255,0.05)]"
+        />
+      </motion.div>
+
+      {/* Left Golden Deity (Desktop & Laptop) */}
+      <motion.div
+        className="absolute left-[1%] lg:left-[2%] xl:left-[3%] top-[22%] hidden lg:block w-[200px] xl:w-[280px] aspect-[4/5] pointer-events-none z-[13] mix-blend-screen opacity-40 xl:opacity-50"
+        animate={{
+          y: [0, -15, 0],
+          rotate: [0, 2, 0]
+        }}
+        transition={{
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+        <img
+          src="/Images/hero_occult_deity.png"
+          alt="Occult Deity"
+          className="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(197,168,92,0.15)]"
+        />
+      </motion.div>
+
+      {/* Right Geometric Silhouette (Desktop & Laptop) */}
+      <motion.div
+        className="absolute right-[1%] lg:right-[2%] xl:right-[3%] top-[22%] hidden lg:block w-[200px] xl:w-[280px] aspect-[4/5] pointer-events-none z-[13] mix-blend-screen opacity-45 xl:opacity-55"
+        animate={{
+          y: [0, 15, 0],
+          rotate: [0, -2, 0]
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.5
+        }}
+      >
+        <img
+          src="/Images/hero_occult_pattern.png"
+          alt="Occult Geometric Pattern"
+          className="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(255,255,255,0.08)]"
+        />
+      </motion.div>
+
+      {/* ── Layer 5: Slow floating tattoo sketches ── */}
       <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-[11]">
         {floatingSketches.map((sketch, idx) => (
           <motion.div
@@ -377,128 +468,175 @@ export default function HeroSection() {
         ))}
       </div>
 
-      {/* ── SPLIT HERO LAYOUT ── */}
-      <div className="w-full max-w-7xl mx-auto px-6 lg:px-10 py-24 md:py-32 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-20">
+      {/* ── CENTERED HERO CONTENT ── */}
+      <div className="w-full max-w-5xl mx-auto px-6 text-center relative z-20 flex flex-col items-center">
         
-        {/* Left Side: Emotional Messaging & Headlines */}
+        {/* Tagline */}
         <motion.div
-          className="lg:col-span-6 flex flex-col justify-center text-left"
-          style={{ y: textParallaxY }}
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="inline-flex items-center gap-3 mb-3"
         >
-          {/* Tagline */}
-          <motion.div
-            initial={{ opacity: 0, x: -15 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center gap-2 mb-6"
-          >
-            <div className="h-px w-8 bg-[#D4AF37]" />
-            <span className="text-[0.62rem] tracking-[0.3em] font-bold text-[#D4AF37] uppercase">
-              Aquarius Luxury Tattoo Studio
-            </span>
-          </motion.div>
-
-          {/* Rotating Headline with Ink Reveal */}
-          <div className="min-h-[145px] sm:min-h-[185px] lg:min-h-[220px] flex items-center relative">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={headlineIndex}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="flex flex-wrap gap-x-4 gap-y-1 sm:gap-y-3"
-              >
-                {headlines[headlineIndex].split(" ").map((word, wordIdx) => (
-                  <span key={wordIdx} className="inline-block whitespace-nowrap">
-                    {word.split("").map((char, charIdx) => {
-                      const isSpecial = char === '.'
-                      return (
-                        <motion.span
-                          key={charIdx}
-                          variants={letterVariants}
-                          className={`inline-block font-black tracking-tight text-[clamp(2.1rem,5.5vw,4.8rem)] leading-[0.95] ${
-                            isSpecial ? 'text-[#D4AF37]' : 'text-[#F5F5F5]'
-                          }`}
-                          style={{ fontFamily: 'var(--font-display)' }}
-                          transition={{
-                            delay: (wordIdx * 4 + charIdx) * 0.035
-                          }}
-                        >
-                          {char}
-                        </motion.span>
-                      )
-                    })}
-                  </span>
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Subheadline */}
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.95 }}
-            className="mt-6 text-[#9A9A9A] text-sm md:text-base font-light leading-[1.8] max-w-lg"
-          >
-            Custom tattoos crafted by Bangalore's elite artists. From fine line designs to full sleeve masterpieces, every piece is designed exclusively for you.
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.95, duration: 0.8 }}
-            className="mt-10 flex flex-col sm:flex-row gap-5 items-stretch sm:items-center"
-          >
-            {/* Primary CTA (Magnetic Interaction) */}
-            <motion.div
-              ref={ctaMag.ref}
-              animate={{ x: ctaMag.offset.x, y: ctaMag.offset.y }}
-              transition={{ type: 'spring', stiffness: 180, damping: 15, mass: 0.1 }}
-              onMouseMove={ctaMag.onMouseMove}
-              onMouseLeave={ctaMag.onMouseLeave}
-              className="inline-flex"
-            >
-              <Link
-                href="#contact"
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4.5 bg-[#D4AF37] text-[#050505] text-[0.65rem] tracking-[0.28em] uppercase font-bold hover:shadow-[0_0_35px_rgba(212,175,55,0.45)] hover:scale-[1.03] transition-all duration-300 w-full sm:w-auto"
-              >
-                <span>Book Consultation</span>
-                <ArrowRight
-                  size={14}
-                  className="group-hover:translate-x-1.5 transition-transform duration-300 flex-shrink-0 stroke-[2.5px]"
-                />
-              </Link>
-            </motion.div>
-
-            {/* Secondary CTA (Animated border glow) */}
-            <Link
-              href="#showcase"
-              className="relative group px-8 py-4.5 overflow-hidden border border-[#D4AF37]/20 hover:border-[#D4AF37] transition-all duration-500 flex items-center justify-center"
-            >
-              {/* Border shine animation */}
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[#D4AF37]/15 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out" />
-              <span className="text-[0.65rem] tracking-[0.28em] uppercase font-semibold text-[#9A9A9A] group-hover:text-white transition-colors duration-300">
-                Explore Portfolio
-              </span>
-            </Link>
-          </motion.div>
+          <div className="h-px w-6 bg-[var(--brand-gold)] opacity-50" />
+          {/* Small Occult Symbol in Tagline */}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-[var(--brand-gold)]">
+            <polygon points="12,3 3,20 21,20" />
+            <circle cx="12" cy="13" r="2" />
+          </svg>
+          <span className="text-[0.62rem] tracking-[0.35em] font-bold text-[var(--brand-gold)] uppercase">
+            Aquarius Luxury Tattoo Studio
+          </span>
+          <div className="h-px w-6 bg-[var(--brand-gold)] opacity-50" />
         </motion.div>
 
-        {/* Right Side: Visual Showcase Slideshow */}
-        <motion.div
-          className="lg:col-span-6 w-full flex justify-center lg:justify-end"
-          style={{ y: imageParallaxY }}
+        {/* Rotating Headline with Ink Reveal */}
+        <div className="min-h-[110px] sm:min-h-[135px] md:min-h-[150px] flex items-center justify-center relative w-full">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={headlineIndex}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="flex flex-wrap gap-x-4 gap-y-1 sm:gap-y-3 justify-center text-center max-w-4xl"
+            >
+              {headlines[headlineIndex].split(" ").map((word, wordIdx) => (
+                <span key={wordIdx} className="inline-block whitespace-nowrap">
+                  {word.split("").map((char, charIdx) => {
+                    const isSpecial = char === '.' || char === '!' || char === '&'
+                    return (
+                      <motion.span
+                        key={charIdx}
+                        variants={letterVariants}
+                        className={`inline-block font-black tracking-tight text-[clamp(1.9rem,4.2vw,3.6rem)] leading-[0.95] drop-shadow-[0_0_12px_rgba(197,168,92,0.15)] ${
+                          isSpecial ? 'text-[var(--brand-gold)]' : 'text-[#F5F5F5]'
+                        }`}
+                        style={{ fontFamily: 'var(--font-display)' }}
+                        transition={{
+                          delay: (wordIdx * 4 + charIdx) * 0.035
+                        }}
+                      >
+                        {char}
+                      </motion.span>
+                    )
+                  })}
+                </span>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Subheadline */}
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.95 }}
+          className="mt-3 text-[#9A9A9A] text-xs md:text-sm font-light leading-[1.6] max-w-xl"
         >
-          <div className="relative w-full max-w-[500px] aspect-[4/5] sm:aspect-[3/4] bg-[#0c0c0c] border border-white/10 p-2.5 rounded-sm overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.8)] group/showcase hover:border-[#D4AF37]/50 transition-colors duration-500">
-            
-            {/* Slideshow image container */}
-            <div className="relative w-full h-full overflow-hidden">
+          Custom tattoos crafted by Bangalore's elite artists. From fine line designs to full sleeve masterpieces, every piece is designed exclusively for you in our sanctum.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.95, duration: 0.8 }}
+          className="mt-6 flex flex-col sm:flex-row gap-4 items-center justify-center w-full"
+        >
+          {/* Primary CTA (Magnetic Interaction) */}
+          <motion.div
+            ref={ctaMag.ref}
+            animate={{ x: ctaMag.offset.x, y: ctaMag.offset.y }}
+            transition={{ type: 'spring', stiffness: 180, damping: 15, mass: 0.1 }}
+            onMouseMove={ctaMag.onMouseMove}
+            onMouseLeave={ctaMag.onMouseLeave}
+            className="inline-flex w-full sm:w-auto"
+          >
+            <Link
+              href="#contact"
+              className="group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 bg-[var(--brand-gold)] text-black text-[0.6rem] tracking-[0.25em] uppercase font-bold hover:shadow-[0_0_35px_rgba(197,168,92,0.45)] hover:scale-[1.03] transition-all duration-300 w-full sm:w-auto"
+            >
+              <span>Book Consultation</span>
+              <ArrowRight
+                size={14}
+                className="group-hover:translate-x-1.5 transition-transform duration-300 flex-shrink-0 stroke-[2.5px]"
+              />
+            </Link>
+          </motion.div>
+
+          {/* Secondary CTA (Animated border glow) */}
+          <Link
+            href="#showcase"
+            className="relative group px-8 py-3.5 overflow-hidden border border-[var(--brand-gold)]/20 hover:border-[var(--brand-gold)] transition-all duration-500 flex items-center justify-center w-full sm:w-auto"
+          >
+            {/* Border shine animation */}
+            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[var(--brand-gold)]/15 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out" />
+            <span className="text-[0.65rem] tracking-[0.28em] uppercase font-semibold text-[#9A9A9A] group-hover:text-white transition-colors duration-300">
+              Explore Portfolio
+            </span>
+          </Link>
+        </motion.div>
+
+        {/* ── Visual Portal: Rotating Occult Circular Slideshow ── */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.2, duration: 1.0 }}
+          className="relative mt-10 w-[220px] h-[220px] sm:w-[260px] sm:h-[260px] md:w-[280px] md:h-[280px] flex items-center justify-center z-20 group/portal"
+        >
+          {/* Giant All-Seeing Eye outline backdrop (circular slideshow acts as the iris/pupil) */}
+          <div className="absolute inset-[-45px] sm:inset-[-70px] pointer-events-none z-10 opacity-25 group-hover/portal:opacity-40 transition-opacity duration-700 select-none">
+            <svg viewBox="0 0 100 100" fill="none" stroke="var(--brand-gold)" strokeWidth="0.25" className="w-full h-full text-[var(--brand-gold)]">
+              <path d="M 5,50 C 25,15 75,15 95,50" />
+              <path d="M 5,50 C 25,85 75,85 95,50" />
+              <circle cx="50" cy="50" r="28" strokeDasharray="1 1" />
+              <circle cx="50" cy="50" r="24" />
+              {Array.from({ length: 16 }).map((_, i) => {
+                const angle = (i * 22.5 * Math.PI) / 180
+                const x1 = 50 + 28 * Math.cos(angle)
+                const y1 = 50 + 28 * Math.sin(angle)
+                const x2 = 50 + 48 * Math.cos(angle)
+                const y2 = 50 + 48 * Math.sin(angle)
+                if (i === 0 || i === 8) return null
+                return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth="0.2" />
+              })}
+            </svg>
+          </div>
+          {/* Outer rotating ring (clockwise) */}
+          <motion.div
+            className="absolute inset-[-10px] pointer-events-none z-30 opacity-40 group-hover/portal:opacity-70 transition-opacity duration-700"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          >
+            <svg viewBox="0 0 100 100" fill="none" stroke="var(--brand-gold)" strokeWidth="0.2" className="w-full h-full">
+              <circle cx="50" cy="50" r="48" strokeDasharray="3 3" />
+              <polygon points="50,5 11,73 89,73" strokeWidth="0.15" />
+              <circle cx="50" cy="5" r="1" fill="var(--brand-gold)" />
+              <circle cx="11" cy="73" r="1" fill="var(--brand-gold)" />
+              <circle cx="89" cy="73" r="1" fill="var(--brand-gold)" />
+            </svg>
+          </motion.div>
+
+          {/* Inner rotating ring (counter-clockwise) */}
+          <motion.div
+            className="absolute inset-[-3px] pointer-events-none z-30 opacity-50 group-hover/portal:opacity-80 transition-opacity duration-700"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          >
+            <svg viewBox="0 0 100 100" fill="none" stroke="var(--brand-gold)" strokeWidth="0.25" className="w-full h-full">
+              <circle cx="50" cy="50" r="44" strokeDasharray="1 2" />
+              <polygon points="50,95 11,27 89,27" strokeWidth="0.2" />
+              <circle cx="50" cy="50" r="32" />
+            </svg>
+          </motion.div>
+
+          {/* Main Circular Portal frame */}
+          <div className="relative w-full h-full rounded-full overflow-hidden border border-[var(--brand-gold)]/40 p-1.5 group-hover/portal:border-[var(--brand-gold)]/80 transition-colors duration-500 bg-[#080808] shadow-[0_0_50px_rgba(197,168,92,0.25)]">
+            <div className="relative w-full h-full rounded-full overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={slideIndex}
-                  initial={{ opacity: 0, scale: 1.12 }}
+                  initial={{ opacity: 0, scale: 1.15 }}
                   animate={{ opacity: 1, scale: 1.05 }}
                   exit={{ opacity: 0, scale: 1.0 }}
                   transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -507,75 +645,54 @@ export default function HeroSection() {
                   <img
                     src={slides[slideIndex].image}
                     alt={slides[slideIndex].title}
-                    className="w-full h-full object-cover transition-transform duration-[4000ms] ease-out scale-100 group-hover/showcase:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-[4000ms] ease-out scale-100 group-hover/portal:scale-105"
                   />
-                  {/* Subtle darkening overlays */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-                  <div className="absolute inset-0 bg-black/10 group-hover/showcase:bg-black/0 transition-colors duration-500" />
+                  {/* Subtle bottom-only darkening overlay for text contrast */}
+                  <div className="absolute bottom-0 left-0 right-0 h-[45%] bg-gradient-to-t from-black/95 to-transparent z-10" />
                 </motion.div>
               </AnimatePresence>
 
-              {/* Slider details/captions at bottom */}
-              <div className="absolute bottom-6 left-6 right-6 z-30 flex justify-between items-end">
-                <div>
-                  <motion.p
-                    key={`cat-${slideIndex}`}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="text-[0.62rem] tracking-[0.25em] text-[#D4AF37] uppercase font-bold mb-1"
-                  >
-                    {slides[slideIndex].title}
-                  </motion.p>
-                  <motion.h4
-                    key={`det-${slideIndex}`}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="text-white text-lg font-bold font-display"
-                  >
-                    {slides[slideIndex].details}
-                  </motion.h4>
-                </div>
-                <div className="text-right">
-                  <span className="text-[0.55rem] tracking-[0.15em] text-[#9A9A9A] uppercase block mb-1">
-                    Art By
-                  </span>
-                  <motion.span
-                    key={`art-${slideIndex}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-white text-sm font-semibold tracking-wide"
-                  >
-                    {slides[slideIndex].artist}
-                  </motion.span>
-                </div>
+              {/* Slider captions at bottom of portal */}
+              <div className="absolute bottom-6 left-0 right-0 z-30 flex flex-col items-center text-center px-4">
+                <motion.p
+                  key={`cat-${slideIndex}`}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-[0.48rem] tracking-[0.2em] text-[var(--brand-gold)] uppercase font-bold mb-0.5"
+                >
+                  {slides[slideIndex].title}
+                </motion.p>
+                <motion.h4
+                  key={`det-${slideIndex}`}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-white text-[0.62rem] font-bold font-display uppercase tracking-widest max-w-[170px]"
+                >
+                  {slides[slideIndex].details}
+                </motion.h4>
               </div>
 
-              {/* Interactive slide counters/ticks */}
-              <div className="absolute top-6 right-6 z-30 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1.5 border border-white/5 rounded-sm">
+              {/* Ticks inside the portal */}
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1">
                 {slides.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => setSlideIndex(i)}
-                    className="group/btn relative w-6 h-1 bg-white/20 transition-all duration-300"
+                    className="w-2.5 h-0.75 bg-white/20 transition-all duration-300 relative rounded-sm"
                     aria-label={`Go to slide ${i + 1}`}
                   >
                     {slideIndex === i && (
                       <motion.div
-                        layoutId="activeSlideTick"
-                        className="absolute inset-0 bg-[#D4AF37]"
+                        layoutId="activePortalTick"
+                        className="absolute inset-0 bg-[var(--brand-gold)] rounded-sm"
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       />
                     )}
                   </button>
                 ))}
               </div>
-            </div>
 
-            {/* Corner styling accents */}
-            <div className="absolute top-2 left-2 w-5 h-5 border-t border-l border-white/20 pointer-events-none group-hover/showcase:border-[#D4AF37]/50 transition-colors duration-500" />
-            <div className="absolute bottom-2 right-2 w-5 h-5 border-b border-r border-white/20 pointer-events-none group-hover/showcase:border-[#D4AF37]/50 transition-colors duration-500" />
+            </div>
           </div>
         </motion.div>
 
@@ -588,7 +705,7 @@ export default function HeroSection() {
         </span>
         <div className="w-px h-10 bg-white/10 relative overflow-hidden">
           <motion.div
-            className="absolute left-0 w-full h-[40%] bg-[#D4AF37]"
+            className="absolute left-0 w-full h-[40%] bg-[var(--brand-gold)]"
             animate={{ top: ['0%', '150%'] }}
             transition={{ duration: 2.0, repeat: Infinity, ease: "easeInOut" }}
           />

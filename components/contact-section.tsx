@@ -117,6 +117,7 @@ export default function ContactSection() {
                     placeholder="Your Name"
                     className="w-full px-4 py-3 bg-background border border-border text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-colors"
                     required
+                    suppressHydrationWarning
                   />
                 </div>
                 <div>
@@ -125,6 +126,7 @@ export default function ContactSection() {
                     placeholder="Your Email"
                     className="w-full px-4 py-3 bg-background border border-border text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-colors"
                     required
+                    suppressHydrationWarning
                   />
                 </div>
                 <div>
@@ -133,11 +135,13 @@ export default function ContactSection() {
                     rows={4}
                     className="w-full px-4 py-3 bg-background border border-border text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-colors resize-none"
                     required
+                    suppressHydrationWarning
                   ></textarea>
                 </div>
                 <button
                   type="submit"
                   className="w-full px-4 py-3 bg-accent text-accent-foreground font-semibold tracking-wide hover:bg-opacity-90 transition-all"
+                  suppressHydrationWarning
                 >
                   SEND MESSAGE
                 </button>

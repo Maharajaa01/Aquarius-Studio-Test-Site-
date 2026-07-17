@@ -1,14 +1,13 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono, Cormorant_Garamond } from 'next/font/google'
+import { Geist, Geist_Mono, Cinzel } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
-const cormorant = Cormorant_Garamond({
+const cinzel = Cinzel({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  style: ['normal', 'italic'],
+  weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-display',
 });
 
@@ -79,7 +78,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${cormorant.variable} font-sans antialiased bg-background text-foreground`}>
+      <body className={`${cinzel.variable} font-sans antialiased bg-background text-foreground`} suppressHydrationWarning>
         {children}
         <Analytics />
       </body>

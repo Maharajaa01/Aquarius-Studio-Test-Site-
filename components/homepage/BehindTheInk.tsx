@@ -31,7 +31,7 @@ const stories = [
 
 export default function BehindTheInk() {
   return (
-    <section className="py-24 bg-[#0a0a0a] relative overflow-hidden">
+    <section className="py-24 bg-[#020202] esoteric-crack-bg relative overflow-hidden border-t border-[var(--brand-gold)]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section heading with ink-reveal */}
@@ -44,7 +44,7 @@ export default function BehindTheInk() {
         >
           <motion.h2
             variants={inkReveal}
-            className="text-4xl md:text-5xl font-black tracking-tighter text-white mb-4 uppercase"
+            className="text-4xl md:text-5xl font-bold font-display tracking-widest text-white mb-4 uppercase"
           >
             Behind The Ink
           </motion.h2>
@@ -91,7 +91,7 @@ export default function BehindTheInk() {
               </div>
 
               <div className="absolute bottom-0 left-0 p-6 w-full translate-y-3 group-hover:translate-y-0 transition-transform duration-500">
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-accent transition-colors">
+                <h3 className="text-2xl font-bold font-display text-white mb-2 group-hover:text-accent transition-colors">
                   {story.title}
                 </h3>
                 <p className="text-gray-300 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">

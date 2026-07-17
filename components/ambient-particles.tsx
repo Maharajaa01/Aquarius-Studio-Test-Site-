@@ -74,7 +74,7 @@ export default function AmbientParticles({ count = 20 }: { count?: number }) {
         ctx.beginPath()
         ctx.arc(p.x * canvas.width, p.y * canvas.height, p.size, 0, Math.PI * 2)
         ctx.fillStyle = p.isGold
-          ? `rgba(255,179,0,${a})`
+          ? `rgba(197, 168, 92, ${a})`
           : `rgba(255,255,255,${a})`
         ctx.fill()
       }

@@ -6,7 +6,10 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --brand-gold: #D4AF37;
+  --brand-gold: #C5A85C;
+  --brand-gold-glow: rgba(197, 168, 92, 0.45);
+  --brand-gold-deep: #9A7B3C;
+  --brand-gold-bright: #E5C07B;
   --brand-red-accent: #8B0000;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -44,38 +47,38 @@
 }
 
 .dark {
-  --background: #050505;
+  --background: #020202;
   --foreground: #F5F5F5;
-  --card: #0a0a0a;
+  --card: #080808;
   --card-foreground: #F5F5F5;
-  --popover: #0a0a0a;
+  --popover: #080808;
   --popover-foreground: #F5F5F5;
   --primary: #F5F5F5;
-  --primary-foreground: #050505;
-  --secondary: #121212;
+  --primary-foreground: #020202;
+  --secondary: #0c0c0c;
   --secondary-foreground: #F5F5F5;
-  --muted: #121212;
+  --muted: #0c0c0c;
   --muted-foreground: #9A9A9A;
-  --accent: #D4AF37;
-  --accent-foreground: #050505;
+  --accent: #C5A85C;
+  --accent-foreground: #020202;
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: #ffffff;
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.12);
-  --ring: #D4AF37;
+  --border: rgba(197, 168, 92, 0.12);
+  --input: rgba(197, 168, 92, 0.15);
+  --ring: #C5A85C;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --sidebar: #0a0a0a;
+  --sidebar: #080808;
   --sidebar-foreground: #F5F5F5;
-  --sidebar-primary: #D4AF37;
-  --sidebar-primary-foreground: #050505;
-  --sidebar-accent: #121212;
+  --sidebar-primary: #C5A85C;
+  --sidebar-primary-foreground: #020202;
+  --sidebar-accent: #0c0c0c;
   --sidebar-accent-foreground: #F5F5F5;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #D4AF37;
+  --sidebar-border: rgba(197, 168, 92, 0.12);
+  --sidebar-ring: #C5A85C;
 }
 
 @theme inline {
@@ -394,3 +397,54 @@
   pointer-events: none;
   animation: grainAnimation 8s steps(10) infinite;
 }
+
+/* Occult theme styles */
+.esoteric-crack-bg {
+  position: relative;
+}
+.esoteric-crack-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800' width='100%25' height='100%25'%3E%3Cpath d='M10 200 Q 250 220 400 180 T 800 230 M0 550 Q 300 480 600 590 T 800 500 M200 0 Q 150 350 250 550 T 180 800 M650 0 Q 580 350 620 800 M120 120 L 150 170 L 110 210 M480 480 L 530 430 L 580 490 M300 300 L 280 380 L 350 420' stroke='%23C5A85C' stroke-width='0.8' fill='none' stroke-linecap='round' opacity='0.25'/%3E%3Cpath d='M50 50 L 50 100 L 100 50 Z M750 750 L 750 700 L 700 750 Z' fill='none' stroke='%23C5A85C' stroke-width='0.5' opacity='0.15'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.12;
+  mix-blend-mode: color-dodge;
+  z-index: 1;
+}
+
+.glowing-occult-border {
+  border: 1px solid rgba(197, 168, 92, 0.25);
+  box-shadow: 0 0 15px rgba(197, 168, 92, 0.08), inset 0 0 10px rgba(197, 168, 92, 0.03);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.glowing-occult-border:hover {
+  border-color: rgba(197, 168, 92, 0.55);
+  box-shadow: 0 0 25px rgba(197, 168, 92, 0.18), inset 0 0 15px rgba(197, 168, 92, 0.06);
+}
+
+.occult-crosshairs {
+  position: relative;
+}
+.occult-crosshairs::before,
+.occult-crosshairs::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: #C5A85C;
+  border-style: solid;
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 2;
+}
+.occult-crosshairs::before {
+  top: 12px;
+  left: 12px;
+  border-width: 1px 0 0 1px;
+}
+.occult-crosshairs::after {
+  bottom: 12px;
+  right: 12px;
+  border-width: 0 1px 1px 0;
+}
