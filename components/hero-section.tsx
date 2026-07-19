@@ -491,7 +491,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="inline-flex items-center gap-3 mb-3"
+          className="order-2 lg:order-1 inline-flex items-center gap-3 mb-3"
         >
           <div className="h-px w-6 bg-[var(--brand-gold)] opacity-50" />
           {/* Small Occult Symbol in Tagline */}
@@ -506,7 +506,7 @@ export default function HeroSection() {
         </motion.div>
 
         {/* Rotating Headline with Ink Reveal */}
-        <div className="min-h-[90px] sm:min-h-[135px] md:min-h-[150px] flex items-center justify-center relative w-full">
+        <div className="order-3 lg:order-2 min-h-[90px] sm:min-h-[135px] md:min-h-[150px] flex items-center justify-center relative w-full">
           <AnimatePresence mode="wait">
             <motion.div
               key={headlineIndex}
@@ -546,7 +546,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.95 }}
-          className="mt-3 text-[#9A9A9A] text-xs md:text-sm font-light leading-[1.6] max-w-xl px-4 lg:px-0"
+          className="order-4 lg:order-3 mt-3 text-[#9A9A9A] text-xs md:text-sm font-light leading-[1.6] max-w-xl px-4 lg:px-0"
         >
           Custom tattoos crafted by Bangalore's elite artists. From fine line designs to full sleeve masterpieces, every piece is designed exclusively for you in our sanctum.
         </motion.p>
@@ -556,7 +556,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.95, duration: 0.8 }}
-          className="mt-6 flex flex-col sm:flex-row gap-4 items-center justify-center w-full px-6 sm:px-0"
+          className="order-5 lg:order-4 mt-6 flex flex-col sm:flex-row gap-4 items-center justify-center w-full px-6 sm:px-0"
         >
           {/* Primary CTA (Magnetic Interaction) */}
           <motion.div
@@ -597,7 +597,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1.2, duration: 1.0 }}
-          className="relative mt-8 lg:mt-10 w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] lg:w-[280px] lg:h-[280px] flex items-center justify-center z-20 group/portal"
+          className="order-1 lg:order-5 relative mt-0 mb-6 lg:mt-10 lg:mb-0 w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] lg:w-[280px] lg:h-[280px] flex items-center justify-center z-20 group/portal"
         >
           {/* Giant All-Seeing Eye outline backdrop (circular slideshow acts as the iris/pupil) */}
           <div className="absolute inset-[-45px] sm:inset-[-70px] pointer-events-none z-10 opacity-25 group-hover/portal:opacity-40 transition-opacity duration-700 select-none">
