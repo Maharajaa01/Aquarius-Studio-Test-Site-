@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState, useRef } from 'react'
 import { X, Clock, User, Sparkles, BookOpen } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -19,35 +20,35 @@ const featuredTattoos: ShowcaseTattoo[] = [
     artist: "Aswin",
     style: "Geometric / Mandala",
     hours: "24 Hours",
-    image: "/Images/hero_client_sleeve.jpg"
+    image: "/tattoos/geometric/full_sleeve_geomentric.png"
   },
   {
     name: "Crimson Ryu Backpiece",
     artist: "Aravind",
     style: "Japanese Irezumi",
     hours: "36 Hours",
-    image: "/Images/hero_tattoo_collage.jpg"
+    image: "/tattoos/japanese/koi_fish.jpg"
   },
   {
     name: "Hyper-Realism Portrait",
     artist: "Aravind",
     style: "Black & Grey Realism",
     hours: "18 Hours",
-    image: "/Images/hero_artist_sleeve.jpg"
+    image: "/tattoos/portrait/potraid.jpg"
   },
   {
     name: "Minimalist Celestial Forearm",
     artist: "Aswin",
     style: "Fine Line & Minimalist",
     hours: "6 Hours",
-    image: "/Images/hero_client_sleeve.jpg"
+    image: "/tattoos/minimal/0fb4a0c5514c979c721761cae40c8505.jpg"
   },
   {
     name: "Industrial Core Machine Piece",
     artist: "Aravind",
     style: "Bio-Mechanical Realism",
     hours: "15 Hours",
-    image: "/Images/hero_tattoo_machine.jpg"
+    image: "/tattoos/blackwork/dark_swade.jpg"
   }
 ]
 
@@ -189,6 +190,7 @@ export default function TattooShowcase() {
                 alt={selectedTattoo.name}
                 fill
                 className="object-contain md:object-cover"
+                sizes="(max-width: 768px) 100vw, 60vw"
                 quality={95}
               />
             </div>

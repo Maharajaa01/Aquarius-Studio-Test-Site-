@@ -1,13 +1,14 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono, Cinzel } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import RouteLoadingIndicator from '@/components/route-loading-indicator'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const geist = Geist({ subsets: ["latin"], variable: '--font-geist-sans' });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: '--font-geist-mono' });
 const cinzel = Cinzel({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
+  weight: ['400', '700', '900'],
   variable: '--font-display',
 });
 
@@ -78,7 +79,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${cinzel.variable} font-sans antialiased bg-background text-foreground`} suppressHydrationWarning>
+      <body className={`${geist.variable} ${geistMono.variable} ${cinzel.variable} font-sans antialiased bg-background text-foreground`} suppressHydrationWarning>
+        <RouteLoadingIndicator />
         {children}
         <Analytics />
       </body>

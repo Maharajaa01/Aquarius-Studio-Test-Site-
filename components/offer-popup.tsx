@@ -24,6 +24,18 @@ export default function OfferPopup() {
     setTimeout(() => setIsOpen(false), 300)
   }
 
+  // Lock background scroll while the popup is open — without this the page
+  // behind the overlay stays scrollable on mobile, which reads as a broken/
+  // unresponsive modal (the backdrop shifts instead of the popup itself).
+  useEffect(() => {
+    if (!isOpen) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [isOpen])
+
   if (!isOpen) return null
 
   return (
@@ -35,7 +47,7 @@ export default function OfferPopup() {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`bg-[#0a0a0a] border border-accent/30 rounded-lg relative w-full max-w-[400px] shadow-[0_25px_60px_rgba(0,0,0,0.85)] transform transition-all duration-300 overflow-hidden ${
+        className={`bg-[#0a0a0a] border border-accent/30 rounded-lg relative w-full max-w-[400px] max-h-[85vh] overflow-y-auto shadow-[0_25px_60px_rgba(0,0,0,0.85)] transform transition-all duration-300 ${
           isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
         }`}
       >
@@ -63,7 +75,7 @@ export default function OfferPopup() {
             </div>
           </div>
 
-          <h2 
+          <h2
             className="text-2xl sm:text-3xl font-black mb-1 text-white font-display tracking-tight uppercase"
             style={{ textShadow: '0 0 20px rgba(212, 175, 55, 0.15)' }}
           >

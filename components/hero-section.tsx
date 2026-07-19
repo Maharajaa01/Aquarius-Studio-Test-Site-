@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence, useScroll, useTransform, Variants } from 'framer-motion'
 import { ArrowRight, Compass, Sun, Flower, Skull, Flame } from 'lucide-react'
 import { useMagnetic } from '@/hooks/use-magnetic'
@@ -257,6 +258,8 @@ export default function HeroSection() {
 
   // Canvas-based cinematic smoke simulation
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
     const canvas = smokeCanvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
@@ -322,7 +325,7 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative w-full min-h-screen lg:h-screen lg:max-h-[100vh] bg-[#020202] esoteric-crack-bg flex flex-col justify-center items-center overflow-y-auto lg:overflow-hidden z-10 select-none py-16 lg:py-10"
+      className="relative w-full min-h-screen lg:h-screen lg:max-h-[100vh] bg-[#020202] esoteric-crack-bg flex flex-col justify-center items-center overflow-y-auto overflow-x-hidden lg:overflow-hidden z-10 select-none py-16 lg:py-10"
     >
       {/* ── Layer 1: Drifting smoke canvas in background ── */}
       <canvas
@@ -338,8 +341,8 @@ export default function HeroSection() {
         aria-hidden="true"
         className="absolute pointer-events-none rounded-full blur-[140px] opacity-[0.16] z-[10]"
         style={{
-          width: '600px',
-          height: '600px',
+          width: 'clamp(280px, 60vw, 600px)',
+          height: 'clamp(280px, 60vw, 600px)',
           background: 'radial-gradient(circle, #C5A85C 0%, transparent 70%)',
           top: '20%',
           left: '20%',
@@ -350,11 +353,15 @@ export default function HeroSection() {
       {/* ── Layer 4: Floating Deities Flanking & Mobile Watermarks (Pro Illuminate Theme) ── */}
       {/* Mobile Occult Deity Watermark (centered behind text on phones/tablets) */}
       <div className="absolute inset-0 flex items-center justify-center lg:hidden opacity-[0.05] pointer-events-none z-[10] mix-blend-screen">
-        <img
-          src="/Images/hero_occult_deity.png"
-          alt="Occult watermark"
-          className="w-[320px] aspect-[4/5] object-contain"
-        />
+        <div className="relative w-[320px] aspect-[4/5]">
+          <Image
+            src="/Images/hero_occult_deity.png"
+            alt="Occult watermark"
+            fill
+            className="object-contain"
+            sizes="320px"
+          />
+        </div>
       </div>
 
       {/* Mobile Bottom-Left Deity Frame */}
@@ -370,10 +377,12 @@ export default function HeroSection() {
           ease: "easeInOut"
         }}
       >
-        <img
+        <Image
           src="/Images/hero_occult_deity.png"
           alt="Occult Deity Mobile"
-          className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(197,168,92,0.1)]"
+          fill
+          className="object-contain filter drop-shadow-[0_0_15px_rgba(197,168,92,0.1)]"
+          sizes="150px"
         />
       </motion.div>
 
@@ -391,10 +400,12 @@ export default function HeroSection() {
           delay: 0.5
         }}
       >
-        <img
+        <Image
           src="/Images/hero_occult_pattern.png"
           alt="Occult Pattern Mobile"
-          className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(255,255,255,0.05)]"
+          fill
+          className="object-contain filter drop-shadow-[0_0_15px_rgba(255,255,255,0.05)]"
+          sizes="150px"
         />
       </motion.div>
 
@@ -411,10 +422,12 @@ export default function HeroSection() {
           ease: "easeInOut"
         }}
       >
-        <img
+        <Image
           src="/Images/hero_occult_deity.png"
           alt="Occult Deity"
-          className="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(197,168,92,0.15)]"
+          fill
+          className="object-contain filter drop-shadow-[0_0_20px_rgba(197,168,92,0.15)]"
+          sizes="280px"
         />
       </motion.div>
 
@@ -432,10 +445,12 @@ export default function HeroSection() {
           delay: 0.5
         }}
       >
-        <img
+        <Image
           src="/Images/hero_occult_pattern.png"
           alt="Occult Geometric Pattern"
-          className="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(255,255,255,0.08)]"
+          fill
+          className="object-contain filter drop-shadow-[0_0_20px_rgba(255,255,255,0.08)]"
+          sizes="280px"
         />
       </motion.div>
 
@@ -476,7 +491,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="inline-flex items-center gap-3 mb-3 hidden lg:inline-flex"
+          className="order-2 lg:order-1 inline-flex items-center gap-3 mb-3"
         >
           <div className="h-px w-6 bg-[var(--brand-gold)] opacity-50" />
           {/* Small Occult Symbol in Tagline */}
@@ -491,7 +506,7 @@ export default function HeroSection() {
         </motion.div>
 
         {/* Rotating Headline with Ink Reveal */}
-        <div className="min-h-[110px] sm:min-h-[135px] md:min-h-[150px] flex items-center justify-center relative w-full hidden lg:flex">
+        <div className="order-3 lg:order-2 min-h-[90px] sm:min-h-[135px] md:min-h-[150px] flex items-center justify-center relative w-full">
           <AnimatePresence mode="wait">
             <motion.div
               key={headlineIndex}
@@ -531,7 +546,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.95 }}
-          className="mt-3 text-[#9A9A9A] text-xs md:text-sm font-light leading-[1.6] max-w-xl hidden lg:block"
+          className="order-4 lg:order-3 mt-3 text-[#9A9A9A] text-xs md:text-sm font-light leading-[1.6] max-w-xl px-4 lg:px-0"
         >
           Custom tattoos crafted by Bangalore's elite artists. From fine line designs to full sleeve masterpieces, every piece is designed exclusively for you in our sanctum.
         </motion.p>
@@ -541,7 +556,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.95, duration: 0.8 }}
-          className="mt-6 flex flex-col sm:flex-row gap-4 items-center justify-center w-full hidden lg:flex"
+          className="order-5 lg:order-4 mt-6 flex flex-col sm:flex-row gap-4 items-center justify-center w-full px-6 sm:px-0"
         >
           {/* Primary CTA (Magnetic Interaction) */}
           <motion.div
@@ -582,7 +597,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1.2, duration: 1.0 }}
-          className="relative mt-0 lg:mt-10 w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] lg:w-[280px] lg:h-[280px] flex items-center justify-center z-20 group/portal"
+          className="order-1 lg:order-5 relative mt-0 mb-6 lg:mt-10 lg:mb-0 w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] lg:w-[280px] lg:h-[280px] flex items-center justify-center z-20 group/portal"
         >
           {/* Giant All-Seeing Eye outline backdrop (circular slideshow acts as the iris/pupil) */}
           <div className="absolute inset-[-45px] sm:inset-[-70px] pointer-events-none z-10 opacity-25 group-hover/portal:opacity-40 transition-opacity duration-700 select-none">
@@ -642,10 +657,13 @@ export default function HeroSection() {
                   transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className="absolute inset-0 w-full h-full"
                 >
-                  <img
+                  <Image
                     src={slides[slideIndex].image}
                     alt={slides[slideIndex].title}
-                    className="w-full h-full object-cover transition-transform duration-[4000ms] ease-out scale-100 group-hover/portal:scale-105"
+                    fill
+                    priority={slideIndex === 0}
+                    className="object-cover transition-transform duration-[4000ms] ease-out scale-100 group-hover/portal:scale-105"
+                    sizes="(min-width: 1024px) 280px, (min-width: 640px) 320px, 260px"
                   />
                   {/* Subtle bottom-only darkening overlay for text contrast */}
                   <div className="absolute bottom-0 left-0 right-0 h-[45%] bg-gradient-to-t from-black/95 to-transparent z-10" />

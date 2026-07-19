@@ -63,14 +63,15 @@ export default function StudioSection() {
     }
   }
 
-  // Grid classes for a stunning 5-item bento-box layout (3-column grid)
-  // Item 0 (Video): spans 2 cols and 2 rows for a massive, eye-catching cinematic feature
+  // Grid classes for a stunning 5-item bento-box layout.
+  // Mobile: single column stack. Tablet (sm): 2-column grid. Desktop (lg): full 3-column bento.
+  // Item 0 (Video): spans 2 cols and 2 rows on desktop for a massive, eye-catching cinematic feature
   const gridClasses = [
-    'md:col-span-2 md:row-span-2 h-[350px] md:h-[620px]', // Massive featured video (2x2)
-    'md:col-span-1 md:row-span-1 h-[170px] md:h-[298px]', // Top-right image (1x1)
-    'md:col-span-1 md:row-span-1 h-[170px] md:h-[298px]', // Middle-right image (1x1)
-    'md:col-span-2 md:row-span-1 h-[170px] md:h-[298px]', // Bottom-left wide image (2x1)
-    'md:col-span-1 md:row-span-1 h-[170px] md:h-[298px]', // Bottom-right image (1x1)
+    'sm:col-span-2 lg:row-span-2 h-[280px] sm:h-[380px] lg:h-[620px]', // Massive featured video (2x2 on desktop)
+    'h-[220px] sm:h-[260px] lg:h-[298px]', // Top-right image (1x1)
+    'h-[220px] sm:h-[260px] lg:h-[298px]', // Middle-right image (1x1)
+    'sm:col-span-2 h-[220px] sm:h-[260px] lg:h-[298px]', // Bottom-left wide image (2x1)
+    'h-[220px] sm:h-[260px] lg:h-[298px]', // Bottom-right image (1x1)
   ]
 
   return (
@@ -95,7 +96,7 @@ export default function StudioSection() {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {studioItems.map((item, index) => (
             <div
               key={index}
@@ -132,7 +133,7 @@ export default function StudioSection() {
                     alt={item.alt}
                     fill
                     className="object-cover transition-transform duration-[8000ms] ease-out group-hover:scale-105"
-                    sizes="(max-w-768px) 100vw, (max-w-1200px) 50vw, 33vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     loading="lazy"
                   />
                   {/* Subtle Shading Overlay */}
@@ -203,6 +204,7 @@ export default function StudioSection() {
                     alt={studioItems[selectedIndex].alt}
                     fill
                     className="object-contain"
+                    sizes="100vw"
                     priority
                   />
                 </div>

@@ -26,7 +26,7 @@ const clientStories: ClientStory[] = [
     story: "I carried the weight of losing my grandfather for two years. I wanted a piece that felt like it had ancient gravity, not just a generic drawing. Seeing Aravind sketch the details and bring his gaze to life on my forearm changed everything.",
     experience: "Aravind spent hours discussing the placement and muscle alignment. The hygiene and focus inside the studio were absolutely world-class.",
     beforeAfter: "Before, I felt a blank space of grief on my skin. After, I wear a permanent, beautiful badge of strength that heals my spirit every day.",
-    image: "/Images/hero_artist_sleeve.jpg"
+    image: "/tattoos/animal/white_tiger.jpg"
   },
   {
     clientName: "Priya Sharma",
@@ -37,7 +37,7 @@ const clientStories: ClientStory[] = [
     story: "It is an emotional reminder of rebirth. Seeing the high-precision lines flow over my physical scars every day gives me a strange, beautiful sense of victory over my past.",
     experience: "Aswin was incredibly gentle. The ambient calming music and absolute care they took in covering my scars made the process a therapeutic journey.",
     beforeAfter: "Before, my scars were a source of physical trauma and insecurity. After, Aswin turned my skin into a masterpiece of personal triumph.",
-    image: "/Images/hero_client_sleeve.jpg"
+    image: "/tattoos/mandala/19a5f02e3171e7107814dc9b98162360.jpg"
   }
 ]
 

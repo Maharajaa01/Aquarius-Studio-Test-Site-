@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Navigation from '@/components/navigation'
+import Footer from '@/components/footer'
 import { ArrowLeft, ExternalLink, CheckCircle2 } from 'lucide-react'
 
 const ARTISTS = [
@@ -490,6 +491,8 @@ export default function CalculatorPage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }

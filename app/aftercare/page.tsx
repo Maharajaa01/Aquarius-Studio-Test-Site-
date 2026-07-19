@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ArrowLeft, AlertCircle, Check } from 'lucide-react'
 import Navigation from '@/components/navigation'
+import Footer from '@/components/footer'
 
 export default function AftercarePage() {
   return (
@@ -118,7 +119,7 @@ export default function AftercarePage() {
             <div className="space-y-4 mb-8">
               <div className="border border-border p-6 hover:border-accent transition-colors">
                 <h3 className="font-bold text-lg mb-2">Healing Timeline</h3>
-                <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                   <div className="p-3 bg-secondary border border-border">
                     <p className="font-bold text-accent mb-1">Ear Lobe</p>
                     <p className="text-muted-foreground">4-6 weeks</p>
@@ -260,6 +261,8 @@ export default function AftercarePage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }

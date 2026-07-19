@@ -8,7 +8,13 @@ export interface TattooImage {
   category: string
 }
 
+// The tattoos directory doesn't change while the server is running, so cache
+// the scan result in memory instead of re-reading the filesystem on every request.
+let cachedResult: { categories: string[]; allImages: TattooImage[] } | null = null
+
 export async function getTattooImages() {
+  if (cachedResult) return cachedResult
+
   const publicDir = path.join(process.cwd(), 'public')
   const tattoosDir = path.join(publicDir, 'tattoos')
   
@@ -38,8 +44,8 @@ export async function getTattooImages() {
         }
       }
     }
-  } catch (error) {
-    console.error('Error reading tattoo images:', error)
+  } catch {
+    // fall through to the default images below
   }
 
   // Fallback if no images found
@@ -51,7 +57,8 @@ export async function getTattooImages() {
     ])
   }
 
-  return { categories, allImages }
+  cachedResult = { categories, allImages }
+  return cachedResult
 }
 
 export async function getRandomTattooImages(count: number): Promise<TattooImage[]> {

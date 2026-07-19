@@ -11,9 +11,10 @@ interface NavigationProps {
 }
 
 const navItems = [
+  { label: 'Home', href: '/#home' },
   { label: 'Gallery', href: '/gallery' },
   { label: 'Artists', href: '/artists' },
-  { label: 'Services', href: '#services' },
+  { label: 'Services', href: '/#services' },
   { label: 'Blog', href: '/blog' },
   { label: 'Aftercare', href: '/aftercare' },
 ]
@@ -41,7 +42,7 @@ export default function Navigation({ isScrolled }: NavigationProps) {
           : 'bg-black/10 backdrop-blur-md border-b border-white/[0.04]'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-10 xl:px-16">
         <div className="flex items-center justify-between h-20">
 
           {/* Wordmark */}
@@ -75,9 +76,10 @@ export default function Navigation({ isScrolled }: NavigationProps) {
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-[0.62rem] tracking-[0.24em] uppercase text-white/50 hover:text-white/90 transition-colors duration-300"
+                className="group relative text-[0.62rem] tracking-[0.24em] uppercase text-white/50 hover:text-white/90 transition-colors duration-300"
               >
                 {item.label}
+                <span className="absolute left-0 -bottom-1.5 h-px w-full origin-left scale-x-0 bg-[var(--brand-gold)] transition-transform duration-300 ease-out group-hover:scale-x-100" />
               </Link>
             ))}
           </div>
@@ -93,7 +95,7 @@ export default function Navigation({ isScrolled }: NavigationProps) {
               className="hidden md:block"
             >
               <Link
-                href="#contact"
+                href="/#contact"
                 className="inline-flex items-center px-6 py-2.5 text-[0.62rem] tracking-[0.24em] uppercase font-medium nav-cta-glow"
                 style={{ color: 'var(--brand-gold)', border: '1px solid var(--brand-gold)' }}
               >
@@ -158,7 +160,7 @@ export default function Navigation({ isScrolled }: NavigationProps) {
                 className="pt-5 border-t border-white/[0.07]"
               >
                 <Link
-                  href="#contact"
+                  href="/#contact"
                   className="inline-flex items-center px-7 py-3 text-[0.62rem] tracking-[0.24em] uppercase font-bold text-black"
                   style={{
                     background: 'var(--brand-gold)',
