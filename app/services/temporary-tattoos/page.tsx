@@ -26,7 +26,7 @@ export default function TemporaryTattoosPage() {
       // Trying to find images that might fit temporary, or fallback to some
       const tempImages = allImages.filter(img => img.category.toLowerCase().includes('minimal') || img.category.toLowerCase().includes('temporary'))
       setImages(tempImages.length > 0 ? tempImages.slice(0, 9) : allImages.slice(0, 9))
-    }).catch(console.error)
+    }).catch(() => {})
   }, [])
 
   return (

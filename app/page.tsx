@@ -23,6 +23,7 @@ import BehindTheInk from '@/components/homepage/BehindTheInk'
 import TrustAndHygiene from '@/components/homepage/TrustAndHygiene'
 import CoverupSlider from '@/components/homepage/CoverupSlider'
 import FinancialFlexibility from '@/components/homepage/FinancialFlexibility'
+import AnniversaryOffer from '@/components/homepage/AnniversaryOffer'
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -35,6 +36,34 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Arriving here via a link like "/#services" from another page can beat this
+  // page's heavy section tree to mounting, so Next's built-in hash scroll fires
+  // before the target element exists and silently does nothing. Retry on
+  // animation frames until the target shows up (or give up after ~1s).
+  useEffect(() => {
+    if (!window.location.hash) return
+    const id = window.location.hash.slice(1)
+
+    let rafId: number
+    let attempts = 0
+    const maxAttempts = 60
+
+    const tryScroll = () => {
+      const el = document.getElementById(id)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        return
+      }
+      attempts++
+      if (attempts < maxAttempts) {
+        rafId = requestAnimationFrame(tryScroll)
+      }
+    }
+    rafId = requestAnimationFrame(tryScroll)
+
+    return () => cancelAnimationFrame(rafId)
+  }, [])
+
   return (
     <div className="bg-background text-foreground">
       <CustomCursor />
@@ -42,6 +71,7 @@ export default function Home() {
       <Navigation isScrolled={isScrolled} />
       <OfferPopup />
       <HeroSection />
+      <AnniversaryOffer />
       <TattooShowcase />
       <StatsSection />
       <StylesSection />

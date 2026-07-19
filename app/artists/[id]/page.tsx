@@ -54,6 +54,7 @@ export default function ArtistProfilePage({ params }: { params: Promise<{ id: st
                 alt={artist.name}
                 fill
                 className="object-cover"
+                sizes="(max-width: 768px) 100vw, 400px"
                 priority
               />
             </motion.div>
@@ -127,6 +128,7 @@ export default function ArtistProfilePage({ params }: { params: Promise<{ id: st
                   alt={`${artist.name} work ${idx}`}
                   width={500}
                   height={500}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                   className="w-full h-auto object-cover hover:scale-105 transition-transform duration-700"
                 />
               </motion.div>

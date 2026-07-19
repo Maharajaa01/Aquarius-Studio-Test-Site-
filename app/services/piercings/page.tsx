@@ -26,7 +26,7 @@ export default function PiercingsPage() {
     // In reality, you'd fetch piercing images, falling back to all images for now
     getTattooImages().then(({ allImages }) => {
       setImages(allImages.slice(0, 9))
-    }).catch(console.error)
+    }).catch(() => {})
   }, [])
 
   return (

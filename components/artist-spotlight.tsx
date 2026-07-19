@@ -34,7 +34,7 @@ const spotlightArtists: ArtistSpotlightData[] = [
     ],
     instagram: "https://www.instagram.com/aquarius_tattoos_bangalore/?hl=en",
     portfolioLink: "/artists/aravind",
-    image: "/Images/hero_artist_sleeve.jpg"
+    image: "/tattoos/religious/lord__shiva.jpg"
   },
   {
     id: "aswin",
@@ -50,7 +50,7 @@ const spotlightArtists: ArtistSpotlightData[] = [
     ],
     instagram: "https://www.instagram.com/aquarius_tattoos_bangalore/?hl=en",
     portfolioLink: "/artists/aswin",
-    image: "/Images/hero_client_sleeve.jpg"
+    image: "/studio/artist/aswin.jpg"
   }
 ]
 

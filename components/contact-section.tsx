@@ -12,11 +12,11 @@ export default function ContactSection() {
   useEffect(() => {
     getRandomTattooImages(1).then(images => {
       if (images && images.length > 0) setBgImage(images[0].src)
-    }).catch(console.error)
+    }).catch(() => {})
   }, [])
 
   return (
-    <section id="contact" className="relative py-16 md:py-24 border-b border-border overflow-hidden">
+    <section id="contact" className="scroll-mt-20 relative py-16 md:py-24 border-b border-border overflow-hidden">
       {/* Blurred Background with Gradient Overlay */}
       {bgImage && (
         <div className="absolute inset-0 z-0">
@@ -24,6 +24,7 @@ export default function ContactSection() {
             src={bgImage}
             alt="Background"
             fill
+            sizes="100vw"
             className="object-cover blur-[8px] scale-110 opacity-30"
           />
         </div>

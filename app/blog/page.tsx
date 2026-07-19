@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Calendar, User } from 'lucide-react'
 import Navigation from '@/components/navigation'
+import Footer from '@/components/footer'
 import Image from 'next/image'
 import { getRandomTattooImages, TattooImage } from '@/lib/images'
 
@@ -11,7 +12,7 @@ export default function BlogPage() {
   const [bgImages, setBgImages] = useState<TattooImage[]>([])
 
   useEffect(() => {
-    getRandomTattooImages(6).then(setBgImages).catch(console.error)
+    getRandomTattooImages(6).then(setBgImages).catch(() => {})
   }, [])
   const posts = [
     {
@@ -106,6 +107,8 @@ export default function BlogPage() {
                   alt="Featured blog post"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 1024px) 100vw, 1152px"
+                  priority
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
@@ -156,6 +159,7 @@ export default function BlogPage() {
                         alt="Blog thumbnail"
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-transparent to-transparent"></div>
@@ -214,6 +218,8 @@ export default function BlogPage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }

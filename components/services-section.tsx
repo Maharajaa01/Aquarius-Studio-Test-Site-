@@ -60,7 +60,7 @@ const premiumServices: ServiceData[] = [
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="py-20 md:py-28 bg-[#020202] esoteric-crack-bg relative overflow-hidden border-b border-[var(--brand-gold)]/10">
+    <section id="services" className="scroll-mt-20 py-20 md:py-28 bg-[#020202] esoteric-crack-bg relative overflow-hidden border-b border-[var(--brand-gold)]/10">
       {/* Background glow highlights */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-r from-[var(--brand-red-accent)]/5 to-transparent blur-[140px] rounded-full pointer-events-none" />
 

@@ -27,7 +27,7 @@ export default function PermanentTattoosPage() {
       // Filter permanent tattoo categories (assuming 'permanent', 'japanese', etc. are for permanent)
       // For now we'll just grab a subset or all
       setImages(allImages.filter(img => img.category !== 'temporary').slice(0, 9))
-    }).catch(console.error)
+    }).catch(() => {})
   }, [])
 
   return (

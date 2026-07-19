@@ -63,7 +63,7 @@ export default function OfferPopup() {
             </div>
           </div>
 
-          <h2 
+          <h2
             className="text-2xl sm:text-3xl font-black mb-1 text-white font-display tracking-tight uppercase"
             style={{ textShadow: '0 0 20px rgba(212, 175, 55, 0.15)' }}
           >

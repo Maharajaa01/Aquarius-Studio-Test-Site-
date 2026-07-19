@@ -19,7 +19,7 @@ const stylesList: TattooStyle[] = [
     name: "Realism",
     key: "realism",
     description: "Life-like portraits, wildlife, and structural figures rendered with absolute depth, soft gradients, and photographic precision.",
-    image: "/Images/hero_artist_sleeve.jpg",
+    image: "/tattoos/portrait/413ba6f4cfc3c72e1f7b6d7085082a59.jpg",
     expert: "Aravind",
     sessionEstimate: "4 - 8 Hours"
   },
@@ -27,7 +27,7 @@ const stylesList: TattooStyle[] = [
     name: "Japanese",
     key: "japanese",
     description: "Flowing backgrounds of clouds and waves representing ancient mythological stories of dragons, koi fish, and irezumi traditional masks.",
-    image: "/Images/hero_tattoo_collage.jpg",
+    image: "/tattoos/japanese/japnesh2.jpg",
     expert: "Aravind",
     sessionEstimate: "6 - 12 Hours"
   },
@@ -43,7 +43,7 @@ const stylesList: TattooStyle[] = [
     name: "Fine Line",
     key: "fineline",
     description: "Intricate line-art, delicate sketches, and botanical illustrations crafted using precise micro-single-needles.",
-    image: "/Images/hero_client_sleeve.jpg",
+    image: "/tattoos/minimal/7a384ab8651bc5e2ae5f56f190435791.jpg",
     expert: "Aswin",
     sessionEstimate: "2 - 5 Hours"
   },
@@ -51,7 +51,7 @@ const stylesList: TattooStyle[] = [
     name: "Blackwork",
     key: "blackwork",
     description: "Bold, highly saturated solid black pigments creating graphic illustrative panels, abstract flows, and high contrast designs.",
-    image: "/Images/hero_tattoo_machine.jpg",
+    image: "/tattoos/blackwork/warrior.jpg",
     expert: "Aravind",
     sessionEstimate: "3 - 7 Hours"
   },
@@ -67,7 +67,7 @@ const stylesList: TattooStyle[] = [
     name: "Portrait",
     key: "portrait",
     description: "Capturing the emotional details and structural fidelity of human faces or animal companions with photorealistic mastery.",
-    image: "/Images/hero_artist_sleeve.jpg",
+    image: "/tattoos/portrait/950baae99f51c8d0366c5e8dda38a023.jpg",
     expert: "Aravind",
     sessionEstimate: "5 - 9 Hours"
   },
@@ -75,7 +75,7 @@ const stylesList: TattooStyle[] = [
     name: "Traditional",
     key: "traditional",
     description: "Bold black outlines, high saturation solid primary color packs, and iconic old-school/neo-traditional motifs.",
-    image: "/Images/hero_tattoo_collage.jpg",
+    image: "/tattoos/floral/red_rose_with_spikes.jpg",
     expert: "Aravind",
     sessionEstimate: "3 - 6 Hours"
   }
@@ -170,7 +170,6 @@ export default function StylesSection() {
                       fill
                       className="object-cover"
                       sizes="(max-width: 1024px) 100vw, 700px"
-                      priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                   </motion.div>

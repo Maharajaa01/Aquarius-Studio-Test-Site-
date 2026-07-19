@@ -45,6 +45,8 @@ export default function ArtistsPage() {
                       alt={artist.name}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 300px"
+                      priority={idx === 0}
                     />
                   </div>
                   <div className="p-8 sm:w-3/5 flex flex-col justify-between">

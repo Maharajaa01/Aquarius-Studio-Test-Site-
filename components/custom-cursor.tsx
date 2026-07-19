@@ -22,10 +22,14 @@ export default function CustomCursor() {
   const mouseRef = useRef({ x: 0, y: 0, lastX: 0, lastY: 0 })
 
   useEffect(() => {
+    // Skip entirely on touch devices — there's no mouse to track and the
+    // canvas/rAF loop would just burn battery behind a CSS-hidden overlay.
+    if (window.matchMedia('(pointer: coarse)').matches) return
+
     const canvas = canvasRef.current
     const cursor = cursorRef.current
     if (!canvas || !cursor) return
-    
+
     document.documentElement.classList.add('custom-cursor')
     
     const ctx = canvas.getContext('2d')

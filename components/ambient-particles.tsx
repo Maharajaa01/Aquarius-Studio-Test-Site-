@@ -35,6 +35,12 @@ export default function AmbientParticles({ count = 20 }: { count?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
+    // Skip on mobile viewports and when the user prefers reduced motion —
+    // this is a purely decorative background layer, not worth the battery/GPU cost there.
+    const isMobile = window.matchMedia('(max-width: 767px)').matches
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (isMobile || prefersReducedMotion) return
+
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')

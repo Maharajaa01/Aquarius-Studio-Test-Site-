@@ -10,7 +10,7 @@ export default function Footer() {
   const [thumbnails, setThumbnails] = useState<TattooImage[]>([])
 
   useEffect(() => {
-    getRandomTattooImages(6).then(setThumbnails).catch(console.error)
+    getRandomTattooImages(6).then(setThumbnails).catch(() => {})
   }, [])
 
   return (
@@ -39,12 +39,12 @@ export default function Footer() {
             <p className="font-semibold text-sm mb-4 tracking-wide">QUICK LINKS</p>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link href="#home" className="hover:text-accent transition-colors">
+                <Link href="/#home" className="hover:text-accent transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="#services" className="hover:text-accent transition-colors">
+                <Link href="/#services" className="hover:text-accent transition-colors">
                   Services
                 </Link>
               </li>
@@ -54,7 +54,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="hover:text-accent transition-colors">
+                <Link href="/#contact" className="hover:text-accent transition-colors">
                   Contact
                 </Link>
               </li>
@@ -135,6 +135,7 @@ export default function Footer() {
                     src={thumb.src}
                     alt="Footer design thumbnail"
                     fill
+                    sizes="(max-width: 768px) 33vw, 100px"
                     className="object-cover opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"
                   />
                   <div className="absolute inset-0 bg-black/30 group-hover:bg-black/0 transition-colors"></div>

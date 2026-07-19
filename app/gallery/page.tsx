@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import Navigation from '@/components/navigation'
+import Footer from '@/components/footer'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getTattooImages, TattooImage } from '@/lib/images'
@@ -18,7 +19,7 @@ export default function GalleryPage() {
     getTattooImages().then(({ categories: fetchedCategories, allImages }) => {
       setCategories([{ id: 'all', label: 'All Designs' }, ...fetchedCategories.map(c => ({ id: c, label: c.toUpperCase() }))])
       setGallery(allImages)
-    }).catch(console.error)
+    }).catch(() => {})
   }, [])
 
   const filteredGallery = selectedCategory === 'all'
@@ -114,6 +115,7 @@ export default function GalleryPage() {
                       alt={`${item.category} tattoo`}
                       width={500}
                       height={500}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                       className="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700"
                       loading="lazy"
                     />
@@ -170,6 +172,7 @@ export default function GalleryPage() {
                     alt={`${filteredGallery[selectedIndex].category} fullscreen preview`}
                     fill
                     className="object-contain"
+                    sizes="100vw"
                     quality={100}
                     priority
                   />
@@ -187,6 +190,8 @@ export default function GalleryPage() {
           )}
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }

@@ -21,7 +21,7 @@ export function ServiceHero({ title, subtitle, imageSrc }: ServiceHeroProps) {
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0])
 
   return (
-    <div ref={ref} className="relative h-[70vh] md:h-[80vh] w-full overflow-hidden flex items-center justify-center">
+    <div ref={ref} className="relative h-[70vh] min-h-[420px] md:h-[80vh] w-full overflow-hidden flex items-center justify-center">
       <motion.div 
         className="absolute inset-0 z-0"
         style={{ y, opacity }}
@@ -31,6 +31,7 @@ export function ServiceHero({ title, subtitle, imageSrc }: ServiceHeroProps) {
           alt={title}
           fill
           className="object-cover"
+          sizes="100vw"
           priority
         />
         {/* Glow & Dark Overlay */}
@@ -38,20 +39,20 @@ export function ServiceHero({ title, subtitle, imageSrc }: ServiceHeroProps) {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent opacity-50" />
       </motion.div>
 
-      <div className="relative z-10 text-center max-w-4xl px-4 mt-20">
-        <motion.h1 
+      <div className="relative z-10 text-center max-w-4xl px-4 mt-12 md:mt-20">
+        <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-6 uppercase"
+          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-4 md:mb-6 uppercase"
         >
           {title}
         </motion.h1>
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-xl md:text-2xl text-gray-300 font-medium"
+          className="text-lg sm:text-xl md:text-2xl text-gray-300 font-medium"
         >
           {subtitle}
         </motion.p>

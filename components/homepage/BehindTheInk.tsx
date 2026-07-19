@@ -10,21 +10,21 @@ const stories = [
     id: 1,
     title: 'A Tribute to Mother',
     description: "Abhishek's eternal memory beautifully captured in a realism portrait.",
-    image: '/placeholder.jpg',
+    image: '/tattoos/portrait/94b9ded83bbabe1a010b547d58853f99.jpg',
     link: '/gallery',
   },
   {
     id: 2,
     title: 'The Phoenix Coverup',
     description: 'Rising from the ashes: A massive back coverup symbolizing resilience.',
-    image: '/placeholder.jpg',
+    image: '/tattoos/blackwork/phenix.jpg',
     link: '/gallery',
   },
   {
     id: 3,
     title: 'Spiritual Awakening',
     description: 'A full sleeve combining geometric patterns with Lord Shiva elements.',
-    image: '/placeholder.jpg',
+    image: '/Images/lord_shiva_hand_tattoo.JPG',
     link: '/gallery',
   },
 ]
@@ -86,6 +86,7 @@ export default function BehindTheInk() {
                   alt={story.title}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
               </div>

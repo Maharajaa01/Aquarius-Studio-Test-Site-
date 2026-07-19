@@ -136,6 +136,7 @@ export default function TrainingPage() {
                   alt="Tattoo Academy learning workspace setup"
                   fill
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  sizes="(max-width: 1024px) 100vw, 550px"
                   priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
@@ -169,6 +170,7 @@ export default function TrainingPage() {
                   alt="Student practicing tattoo linework under guidance"
                   fill
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  sizes="(max-width: 1024px) 100vw, 500px"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />

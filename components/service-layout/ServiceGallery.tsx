@@ -59,6 +59,7 @@ export function ServiceGallery({ title = "Gallery", images }: ServiceGalleryProp
                 alt={`${item.category} tattoo preview`}
                 width={500}
                 height={500}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
@@ -103,6 +104,7 @@ export function ServiceGallery({ title = "Gallery", images }: ServiceGalleryProp
                 alt="Fullscreen preview"
                 fill
                 className="object-contain"
+                sizes="100vw"
                 quality={100}
               />
             </div>
