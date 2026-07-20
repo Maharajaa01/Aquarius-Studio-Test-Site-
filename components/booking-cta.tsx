@@ -46,7 +46,7 @@ export default function BookingCTA() {
           {/* Booking CTA Button */}
           <div className="flex justify-center">
             <Link
-              href="#contact"
+              href="/book"
               className="group relative inline-flex items-center gap-3.5 px-10 py-5 bg-[var(--brand-gold)] text-black text-xs tracking-[0.25em] uppercase font-bold hover:shadow-[0_0_35px_rgba(197,168,92,0.45)] hover:scale-[1.03] transition-all duration-300"
             >
               <span>Book Your Consultation</span>

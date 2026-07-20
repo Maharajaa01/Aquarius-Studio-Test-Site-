@@ -568,7 +568,7 @@ export default function HeroSection() {
             className="inline-flex w-full sm:w-auto"
           >
             <Link
-              href="#contact"
+              href="/book"
               className="group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 bg-[var(--brand-gold)] text-black text-[0.6rem] tracking-[0.25em] uppercase font-bold hover:shadow-[0_0_35px_rgba(197,168,92,0.45)] hover:scale-[1.03] transition-all duration-300 w-full sm:w-auto"
             >
               <span>Book Consultation</span>
