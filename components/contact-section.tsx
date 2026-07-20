@@ -111,10 +111,11 @@ export default function ContactSection() {
             {/* Quick Contact Form */}
             <div className="border border-border p-8 bg-secondary">
               <h3 className="text-xl font-bold mb-6 tracking-tight">Send us a message</h3>
-              <form className="space-y-4">
+              <form action="https://formsubmit.co/aquariustattoostudio9@gmail.com" method="POST" className="space-y-4">
                 <div>
                   <input
                     type="text"
+                    name="name"
                     placeholder="Your Name"
                     className="w-full px-4 py-3 bg-background border border-border text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-colors"
                     required
@@ -124,6 +125,7 @@ export default function ContactSection() {
                 <div>
                   <input
                     type="email"
+                    name="email"
                     placeholder="Your Email"
                     className="w-full px-4 py-3 bg-background border border-border text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-colors"
                     required
@@ -132,6 +134,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <textarea
+                    name="message"
                     placeholder="Your Message"
                     rows={4}
                     className="w-full px-4 py-3 bg-background border border-border text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-colors resize-none"

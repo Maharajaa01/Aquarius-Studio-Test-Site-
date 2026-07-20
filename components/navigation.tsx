@@ -95,7 +95,7 @@ export default function Navigation({ isScrolled }: NavigationProps) {
               className="hidden md:block"
             >
               <Link
-                href="/#contact"
+                href="/book"
                 className="inline-flex items-center px-6 py-2.5 text-[0.62rem] tracking-[0.24em] uppercase font-medium nav-cta-glow"
                 style={{ color: 'var(--brand-gold)', border: '1px solid var(--brand-gold)' }}
               >
@@ -160,7 +160,7 @@ export default function Navigation({ isScrolled }: NavigationProps) {
                 className="pt-5 border-t border-white/[0.07]"
               >
                 <Link
-                  href="/#contact"
+                  href="/book"
                   className="inline-flex items-center px-7 py-3 text-[0.62rem] tracking-[0.24em] uppercase font-bold text-black"
                   style={{
                     background: 'var(--brand-gold)',
