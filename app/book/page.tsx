@@ -11,7 +11,8 @@ import { getRandomTattooImages } from '@/lib/images'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { format } from 'date-fns'
-
+import Image from 'next/image'
+import Link from 'next/link'
 export default function BookingPage() {
   const [formData, setFormData] = useState({
     name1: '',
@@ -83,7 +84,7 @@ export default function BookingPage() {
   }
   const itemVariants = {
     hidden: { opacity: 0, y: 15 },
-    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } }
+    show: { opacity: 1, y: 0, transition: { type: 'spring' as const, stiffness: 300, damping: 24 } }
   }
 
   return (
@@ -323,7 +324,7 @@ export default function BookingPage() {
                           </div>
                           <DatePicker
                             selected={selectedDate}
-                            onChange={(date) => setSelectedDate(date)}
+                            onChange={(date: Date | null) => setSelectedDate(date)}
                             dateFormat="dd MMM yyyy"
                             minDate={new Date()}
                             placeholderText="Select Date"
@@ -343,7 +344,7 @@ export default function BookingPage() {
                           </div>
                           <DatePicker
                             selected={selectedTime}
-                            onChange={(date) => setSelectedTime(date)}
+                            onChange={(date: Date | null) => setSelectedTime(date)}
                             showTimeSelect
                             showTimeSelectOnly
                             timeIntervals={30}
