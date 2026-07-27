@@ -17,6 +17,7 @@ interface ArtistSpotlightData {
   instagram: string
   portfolioLink: string
   image: string
+  imagePosition?: string
 }
 
 const spotlightArtists: ArtistSpotlightData[] = [
@@ -24,17 +25,18 @@ const spotlightArtists: ArtistSpotlightData[] = [
     id: "aravind",
     name: "Aravind",
     role: "Founding Lead Artist",
-    specialty: "Hyper-Realism & Dark Surrealism",
+    specialty: "Piercing Artist & Minimal Tattoos",
     experience: "8+ Years",
     yearsInIndustry: 8,
-    specialization: "Detailed portraits, structural shading, and full scale sleeve concepts.",
+    specialization: "Professional body piercing, delicate fine-line work, and elegant minimal tattoo designs.",
     awards: [
       "Bangalore Tattoo Expo 2023 - Best Black & Grey Realism",
       "South India Tattoo Convention 2024 - Best Coverup Artistry"
     ],
     instagram: "https://www.instagram.com/aquarius_tattoos_bangalore/?hl=en",
     portfolioLink: "/artists/aravind",
-    image: "/tattoos/religious/lord__shiva.jpg"
+    image: "/Images/aravind_artist_dp.jpeg",
+    imagePosition: "object-top"
   },
   {
     id: "aswin",
@@ -97,7 +99,7 @@ export default function ArtistSpotlight() {
                   src={artist.image}
                   alt={artist.name}
                   fill
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  className={`object-cover transition-transform duration-700 ease-out group-hover:scale-105 ${artist.imagePosition || 'object-center'}`}
                   sizes="(max-width: 1024px) 100vw, 580px"
                   loading="lazy"
                 />

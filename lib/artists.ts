@@ -16,12 +16,12 @@ export const artists: Artist[] = [
   {
     id: "aravind",
     name: "Aravind",
-    specialty: "Realism & Black and Grey",
-    bio: "Aravind is a founding artist at Aquarius Tattoo Studio with a sharp eye for detail and a passion for bringing stories to life on skin. His work spans realism, portraiture, and bold blackwork.",
-    image: "/placeholder-user.jpg",
+    specialty: "Piercing Artist & Minimal Tattoos",
+    bio: "Aravind is a founding artist at Aquarius Tattoo Studio specializing in professional body piercing and delicate, fine-line minimal tattoo designs. With a sharp eye for detail, he ensures precision and safety in every piece.",
+    image: "/Images/aravind_artist_dp.jpeg",
     experience: "5+ Years",
     awards: [],
-    styles: ["Realism", "Portrait", "Black & Grey", "Blackwork"],
+    styles: ["Piercings", "Minimalist", "Fine Line", "Micro Art"],
     galleryImages: []
   },
   {

@@ -11,6 +11,7 @@ type Status = 'idle' | 'active' | 'done'
 // through next/link, which renders as <a>) and clear it once the pathname
 // actually changes.
 export default function RouteLoadingIndicator() {
+  // Force Turbopack cache invalidation
   const pathname = usePathname()
   const [status, setStatus] = useState<Status>('idle')
   const startTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
