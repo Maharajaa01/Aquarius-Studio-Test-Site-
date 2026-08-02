@@ -15,7 +15,7 @@ const SectionSkeleton = () => <div className="w-full min-h-[300px] bg-black/20 a
 
 // Below-the-fold components dynamically imported for faster initial page render
 const AmbientParticles = dynamic(() => import('@/components/ambient-particles'), { ssr: false })
-const AnniversaryOffer = dynamic(() => import('@/components/homepage/AnniversaryOffer'), { loading: SectionSkeleton })
+//const AnniversaryOffer = dynamic(() => import('@/components/homepage/AnniversaryOffer'), { loading: SectionSkeleton })
 const TattooShowcase = dynamic(() => import('@/components/tattoo-showcase'), { loading: SectionSkeleton })
 const StatsSection = dynamic(() => import('@/components/stats-section'), { loading: SectionSkeleton })
 const StylesSection = dynamic(() => import('@/components/styles-section'), { loading: SectionSkeleton })
@@ -78,24 +78,24 @@ export default function Home() {
       <Navigation isScrolled={isScrolled} />
       <OfferPopup />
       <HeroSection />
-      <AnniversaryOffer />
+      {/*<AnniversaryOffer />*/}
       <TattooShowcase />
       <StatsSection />
       <StylesSection />
       <ArtistSpotlight />
-      
+
       <BehindTheInk />
-      
+
       <StudioSection />
       <TrustAndHygiene />
-      
+
       <ServicesSection />
       <CoverupSlider />
-      
+
       <TestimonialsSection />
       <FAQSection />
       <FinancialFlexibility />
-      
+
       <BookingCTA />
       <ContactSection />
       <Footer />
