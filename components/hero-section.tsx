@@ -352,7 +352,13 @@ export default function HeroSection() {
       
       {/* ── Layer 4: Floating Deities Flanking & Mobile Watermarks (Pro Illuminate Theme) ── */}
       {/* Mobile Occult Deity Watermark (centered behind text on phones/tablets) */}
-      <div className="absolute inset-0 flex items-center justify-center lg:hidden opacity-[0.05] pointer-events-none z-[10] mix-blend-screen">
+      <div
+        className="absolute inset-0 flex items-center justify-center lg:hidden opacity-[0.05] pointer-events-none z-[10] mix-blend-screen"
+        style={{
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)',
+          maskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)'
+        }}
+      >
         <div className="relative w-[320px] aspect-[4/5]">
           <Image
             src="/Images/hero_occult_deity.png"
@@ -367,6 +373,10 @@ export default function HeroSection() {
       {/* Mobile Bottom-Left Deity Frame */}
       <motion.div
         className="absolute left-0 bottom-6 w-[120px] sm:w-[150px] aspect-[4/5] pointer-events-none z-10 mix-blend-screen opacity-[0.16] block lg:hidden"
+        style={{
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)',
+          maskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)'
+        }}
         animate={{
           y: [0, -10, 0],
           rotate: [0, 1.5, 0]
@@ -389,6 +399,10 @@ export default function HeroSection() {
       {/* Mobile Bottom-Right Deity Frame */}
       <motion.div
         className="absolute right-0 bottom-6 w-[120px] sm:w-[150px] aspect-[4/5] pointer-events-none z-10 mix-blend-screen opacity-[0.20] block lg:hidden"
+        style={{
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)',
+          maskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)'
+        }}
         animate={{
           y: [0, 10, 0],
           rotate: [0, -1.5, 0]
@@ -412,6 +426,10 @@ export default function HeroSection() {
       {/* Left Golden Deity (Desktop & Laptop) */}
       <motion.div
         className="absolute left-[1%] lg:left-[2%] xl:left-[3%] top-[22%] hidden lg:block w-[200px] xl:w-[280px] aspect-[4/5] pointer-events-none z-[13] mix-blend-screen opacity-40 xl:opacity-50"
+        style={{
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)',
+          maskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)'
+        }}
         animate={{
           y: [0, -15, 0],
           rotate: [0, 2, 0]
@@ -434,6 +452,10 @@ export default function HeroSection() {
       {/* Right Geometric Silhouette (Desktop & Laptop) */}
       <motion.div
         className="absolute right-[1%] lg:right-[2%] xl:right-[3%] top-[22%] hidden lg:block w-[200px] xl:w-[280px] aspect-[4/5] pointer-events-none z-[13] mix-blend-screen opacity-45 xl:opacity-55"
+        style={{
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)',
+          maskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)'
+        }}
         animate={{
           y: [0, 15, 0],
           rotate: [0, -2, 0]
