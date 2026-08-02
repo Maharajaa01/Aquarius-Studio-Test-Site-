@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@import "tw-animate-css";
 @import "shadcn/tailwind.css";
+
+.font-script {
+  font-family: 'Great Vibes', cursive, sans-serif;
+}
 
 @custom-variant dark (&:is(.dark *));
 

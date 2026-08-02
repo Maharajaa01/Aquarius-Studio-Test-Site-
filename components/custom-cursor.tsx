@@ -45,6 +45,16 @@ export default function CustomCursor() {
 
     const handleMouseMove = (e: MouseEvent) => {
       const mouse = mouseRef.current
+      if (cursor.style.display === 'none') {
+        cursor.style.display = 'block'
+      }
+      
+      // Initialize last position on first move to prevent huge delta particle explosion at (0,0)
+      if (mouse.lastX === 0 && mouse.lastY === 0) {
+        mouse.lastX = e.clientX
+        mouse.lastY = e.clientY
+      }
+
       mouse.x = e.clientX
       mouse.y = e.clientY
 
@@ -182,6 +192,8 @@ export default function CustomCursor() {
           width: 0,
           height: 0,
           opacity: 0,
+          display: 'none',
+          transform: 'translate3d(-9999px, -9999px, 0)',
           willChange: 'transform',
         }}
       >

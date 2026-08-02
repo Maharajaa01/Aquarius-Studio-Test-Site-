@@ -3,757 +3,273 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, AnimatePresence, useScroll, useTransform, Variants } from 'framer-motion'
-import { ArrowRight, Compass, Sun, Flower, Skull, Flame } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronLeft, ChevronRight, ArrowRight, Sparkles } from 'lucide-react'
 import { useMagnetic } from '@/hooks/use-magnetic'
 
-// ── Images to rotate in Hero ──
-const slides = [
+// ── Full-Screen Background Hero Slides (Yantra Tattoos Masters of Ink Aesthetic) ──
+const heroSlides = [
   {
-    title: "Divine Vision",
-    artist: "Aswin",
-    image: "/Images/hero_occult_hands.png",
-    details: "All-seeing eye of providence"
+    id: 1,
+    tagline: "AQUARIUS LUXURY TATTOO STUDIO",
+    headlineMain1: "AQUARIUS",
+    headlineMain2: "TATTOOS",
+    scriptOverlay: "masters of",
+    headlineMain3: "INK",
+    subtext: "Custom tattoos crafted by Bangalore's elite artists in our sterile sanctum",
+    image: "/Images/hero_tattoo_machine.jpg",
+    link: "/book"
   },
   {
-    title: "Occult Owl",
-    artist: "Aravind",
-    image: "/Images/hero_occult_owl.png",
-    details: "Minerva's alchemical owl"
+    id: 2,
+    tagline: "SACRED GEOMETRY & MANDALA ART",
+    headlineMain1: "SACRED",
+    headlineMain2: "GEOMETRY",
+    scriptOverlay: "sanctum of",
+    headlineMain3: "SKIN",
+    subtext: "Precision fine line & geometric mandala artwork designed exclusively for you",
+    image: "/Images/hero_tattoo_slide2_geometric.png",
+    link: "/gallery"
   },
   {
-    title: "Celestial Deity",
-    artist: "Aravind",
-    image: "/Images/hero_occult_deity.png",
-    details: "Golden multi-armed spiritual deity"
+    id: 3,
+    tagline: "BLACKWORK REALISM & DRAGON ART",
+    headlineMain1: "ARCANE",
+    headlineMain2: "BLACKWORK",
+    scriptOverlay: "masters of",
+    headlineMain3: "WARRIOR INK",
+    subtext: "Japanese blackwork & detailed dark dragon sleeve tattoos consecrated in Bangalore",
+    image: "/Images/hero_tattoo_slide3_v2.png",
+    link: "/artists"
   },
   {
-    title: "Occult Wolf",
-    artist: "Aswin",
-    image: "/Images/hero_occult_wolf.png",
-    details: "Sacred geometry wolf guide"
-  },
-  {
-    title: "Sacred Geometry",
-    artist: "Aswin",
-    image: "/Images/hero_occult_pattern.png",
-    details: "Esoteric multi-armed geometric patterns"
-  },
-  {
-    title: "Celestial Call",
-    artist: "Aravind",
-    image: "/Images/hero_occult_illustration.png",
-    details: "Alchemical multi-armed illustration"
+    id: 4,
+    tagline: "SPIRITUAL ART & SACRED GEOMETRY",
+    headlineMain1: "SPIRITUAL",
+    headlineMain2: "REALISM",
+    scriptOverlay: "consecrated in",
+    headlineMain3: "SPIRIT",
+    subtext: "Bespoke Lord Shiva spiritual tattoos & sacred geometry body art",
+    image: "/Images/hero_tattoo_slide4_v2.png",
+    link: "/services/tattoos"
   }
 ]
-
-// ── Rotating headlines list ──
-const headlines = [
-  "ARCANE ARTISTRY. INKED FOREVER.",
-  "SACRED GEOMETRY. SACRED SKIN.",
-  "THE SANCTUM OF SACRED INK.",
-  "WE DON'T COPY. WE CONSECRATE."
-]
-
-// ── Floating sketch designs (minimal inline outlines) ──
-const floatingSketches = [
-  {
-    name: "Mandala Sketch",
-    top: "12%",
-    left: "5%",
-    size: 140,
-    rotateSpeed: 100,
-    delay: 0,
-    svg: (
-      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="w-full h-full text-white/5">
-        <circle cx="50" cy="50" r="45" strokeDasharray="3 3" />
-        <circle cx="50" cy="50" r="30" />
-        <circle cx="50" cy="50" r="15" />
-        {Array.from({ length: 12 }).map((_, i) => {
-          const angle = (i * 30 * Math.PI) / 180
-          const x2 = (50 + 45 * Math.cos(angle)).toFixed(4)
-          const y2 = (50 + 45 * Math.sin(angle)).toFixed(4)
-          return <line key={i} x1="50" y1="50" x2={x2} y2={y2} />
-        })}
-        {Array.from({ length: 8 }).map((_, i) => {
-          const angle = (i * 45 * Math.PI) / 180
-          const cx = (50 + 30 * Math.cos(angle)).toFixed(4)
-          const cy = (50 + 30 * Math.sin(angle)).toFixed(4)
-          return <circle key={i} cx={cx} cy={cy} r="6" />
-        })}
-      </svg>
-    )
-  },
-  {
-    name: "Compass Sketch",
-    top: "65%",
-    left: "15%",
-    size: 110,
-    rotateSpeed: -140,
-    delay: 2,
-    svg: (
-      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="w-full h-full text-white/5">
-        <circle cx="50" cy="50" r="42" />
-        <circle cx="50" cy="50" r="40" strokeDasharray="2 2" />
-        <path d="M50 8L54 42L50 46L46 42L50 8Z" fill="currentColor" className="text-white/5" />
-        <path d="M50 92L46 58L50 54L54 58L50 92Z" fill="currentColor" className="text-white/5" />
-        <path d="M92 50L58 54L54 50L58 46L92 50Z" fill="currentColor" className="text-white/5" />
-        <path d="M8 50L42 46L46 50L42 54L8 50Z" fill="currentColor" className="text-white/5" />
-        <circle cx="50" cy="50" r="4" fill="currentColor" className="text-white/10" />
-      </svg>
-    )
-  },
-  {
-    name: "Skull Sketch",
-    top: "22%",
-    left: "40%",
-    size: 90,
-    rotateSpeed: 180,
-    delay: 4,
-    svg: (
-      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="w-full h-full text-white/5">
-        <path d="M30 40C30 20 70 20 70 40C70 52 64 56 62 62L60 74H40L38 62C36 56 30 52 30 40Z" />
-        <circle cx="42" cy="42" r="5" />
-        <circle cx="58" cy="42" r="5" />
-        <path d="M47 54L50 50L53 54Z" fill="currentColor" className="text-white/5" />
-        <path d="M44 68H56M44 72H56M48 68V74M52 68V74" />
-      </svg>
-    )
-  },
-  {
-    name: "Rose Sketch",
-    top: "75%",
-    left: "38%",
-    size: 130,
-    rotateSpeed: -90,
-    delay: 1,
-    svg: (
-      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="w-full h-full text-white/5">
-        <circle cx="50" cy="50" r="8" />
-        <path d="M50 42C45 42 42 45 42 50C42 55 45 58 50 58C55 58 58 55 58 50" />
-        <path d="M50 34C40 34 34 40 34 50C34 60 40 66 50 66C60 66 66 60 66 50" />
-        <path d="M50 26C35 26 26 35 26 50C26 65 35 74 50 74C65 74 74 65 74 50" />
-        <path d="M50 74C50 74 46 86 52 94M50 82C38 86 36 90 36 90" />
-      </svg>
-    )
-  },
-  {
-    name: "Snake Sketch",
-    top: "5%",
-    left: "26%",
-    size: 100,
-    rotateSpeed: 120,
-    delay: 3,
-    svg: (
-      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="w-full h-full text-white/5">
-        <path d="M50 10C55 10 57 15 50 22C43 29 42 37 50 44C58 51 59 59 50 66C41 73 40 81 50 88C55 92 50 94 48 94" />
-        <path d="M50 10L52 6M50 10L48 6" />
-        <circle cx="50" cy="10" r="1.5" fill="currentColor" className="text-white/5" />
-      </svg>
-    )
-  }
-]
-
-// ── Particle details for canvas smoke ──
-class SmokeParticle {
-  x: number
-  y: number
-  vx: number
-  vy: number
-  life: number
-  maxLife: number
-  size: number
-  alpha: number
-  rotation: number
-  rotationSpeed: number
-
-  constructor(x: number, y: number) {
-    this.x = x
-    this.y = y
-    this.vx = (Math.random() - 0.5) * 0.3
-    this.vy = -0.2 - Math.random() * 0.3
-    this.life = 0
-    this.maxLife = 150 + Math.random() * 120
-    this.size = 40 + Math.random() * 60
-    this.alpha = 0.02 + Math.random() * 0.04
-    this.rotation = Math.random() * Math.PI * 2
-    this.rotationSpeed = (Math.random() - 0.5) * 0.005
-  }
-
-  update() {
-    this.x += this.vx
-    this.y += this.vy
-    this.rotation += this.rotationSpeed
-    this.life++
-
-    const progress = this.life / this.maxLife
-    if (progress < 0.25) {
-      this.alpha = (progress / 0.25) * 0.06
-    } else {
-      this.alpha = (1 - progress) * 0.06
-    }
-    this.size += 0.25
-  }
-}
-
-// ── Letter Animations for Ink Reveal ──
-const letterVariants: Variants = {
-  initial: {
-    opacity: 0,
-    filter: 'blur(10px) brightness(0.1) drop-shadow(0 0 12px rgba(197, 168, 92, 0.45))',
-    scale: 1.25,
-    y: 8
-  },
-  animate: {
-    opacity: 1,
-    filter: 'blur(0px) brightness(1) drop-shadow(0 0 0px rgba(0,0,0,0))',
-    scale: 1,
-    y: 0,
-    transition: {
-      type: 'spring',
-      stiffness: 110,
-      damping: 14
-    }
-  },
-  exit: {
-    opacity: 0,
-    filter: 'blur(6px) brightness(0.2)',
-    scale: 0.9,
-    y: -8,
-    transition: {
-      duration: 0.35,
-      ease: 'easeIn'
-    }
-  }
-}
 
 export default function HeroSection() {
-  const [headlineIndex, setHeadlineIndex] = useState(0)
-  const [slideIndex, setSlideIndex] = useState(0)
-  
-  const smokeCanvasRef = useRef<HTMLCanvasElement>(null)
-  const ctaMag = useMagnetic(0.35)
-  const { scrollY } = useScroll()
+  const [activeSlide, setActiveSlide] = useState(0)
+  const ctaMag = useMagnetic(0.3)
 
-  // Parallax transform variables
-  const backgroundY = useTransform(scrollY, [0, 900], [0, -120])
-  const textParallaxY = useTransform(scrollY, [0, 900], [0, 80])
-  const imageParallaxY = useTransform(scrollY, [0, 900], [0, -60])
-
-  // Headline rotation (4 seconds)
+  // Auto slide rotation (5.5 seconds)
   useEffect(() => {
-    const headlineTimer = setInterval(() => {
-      setHeadlineIndex((prev) => (prev + 1) % headlines.length)
-    }, 4000)
-    return () => clearInterval(headlineTimer)
+    const timer = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % heroSlides.length)
+    }, 5500)
+    return () => clearInterval(timer)
   }, [])
 
-  // Showcase slideshow rotation (4 seconds)
-  useEffect(() => {
-    const slideTimer = setInterval(() => {
-      setSlideIndex((prev) => (prev + 1) % slides.length)
-    }, 4000)
-    return () => clearInterval(slideTimer)
-  }, [])
+  const nextSlide = () => {
+    setActiveSlide((prev) => (prev + 1) % heroSlides.length)
+  }
 
-  // Canvas-based cinematic smoke simulation
-  useEffect(() => {
-    const isMobile = window.matchMedia('(max-width: 767px)').matches
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (isMobile || prefersReducedMotion) return
-
-    const canvas = smokeCanvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    let animationFrameId: number
-    const particles: SmokeParticle[] = []
-    
-    const handleResize = () => {
-      canvas.width = canvas.parentElement?.clientWidth || window.innerWidth
-      canvas.height = canvas.parentElement?.clientHeight || window.innerHeight
-    }
-    handleResize()
-    window.addEventListener('resize', handleResize, { passive: true })
-
-    const tick = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      
-      // Spawn new particles slowly
-      if (Math.random() < 0.05 && particles.length < 35) {
-        const spawnX = Math.random() * canvas.width
-        const spawnY = canvas.height + 20
-        particles.push(new SmokeParticle(spawnX, spawnY))
-      }
-
-      // Update and draw particles
-      for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i]
-        p.update()
-
-        if (p.life >= p.maxLife || p.alpha <= 0 || p.y < -50) {
-          particles.splice(i, 1)
-          continue
-        }
-
-        ctx.save()
-        ctx.translate(p.x, p.y)
-        ctx.rotate(p.rotation)
-        
-        // Soft round smoke gradient
-        const radGrd = ctx.createRadialGradient(0, 0, 0, 0, 0, p.size)
-        radGrd.addColorStop(0, `rgba(20, 20, 20, ${p.alpha})`)
-        radGrd.addColorStop(0.5, `rgba(15, 15, 15, ${p.alpha * 0.4})`)
-        radGrd.addColorStop(1, 'rgba(0, 0, 0, 0)')
-
-        ctx.fillStyle = radGrd
-        ctx.beginPath()
-        ctx.arc(0, 0, p.size, 0, Math.PI * 2)
-        ctx.fill()
-        ctx.restore()
-      }
-
-      animationFrameId = requestAnimationFrame(tick)
-    }
-    tick()
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      cancelAnimationFrame(animationFrameId)
-    }
-  }, [])
+  const prevSlide = () => {
+    setActiveSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+  }
 
   return (
     <section
       id="home"
-      className="relative w-full min-h-screen lg:h-screen lg:max-h-[100vh] bg-[#020202] esoteric-crack-bg flex flex-col justify-center items-center overflow-y-auto overflow-x-hidden lg:overflow-hidden z-10 select-none py-16 lg:py-10"
+      className="relative w-full h-screen min-h-[720px] bg-[#020202] flex flex-col justify-between items-center overflow-hidden z-10 select-none pt-20"
     >
-      {/* ── Layer 1: Drifting smoke canvas in background ── */}
-      <canvas
-        ref={smokeCanvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none z-[11] opacity-70"
-      />
-
-      {/* ── Layer 2: Moving luxury film grain ── */}
-      <div className="absolute inset-0 luxury-grain pointer-events-none z-[12]" />
-
-      {/* ── Layer 3: Glowing parallax background blur elements ── */}
-      <motion.div
-        aria-hidden="true"
-        className="absolute pointer-events-none rounded-full blur-[60px] sm:blur-[140px] opacity-[0.16] z-[10]"
-        style={{
-          width: 'clamp(280px, 60vw, 600px)',
-          height: 'clamp(280px, 60vw, 600px)',
-          background: 'radial-gradient(circle, #C5A85C 0%, transparent 70%)',
-          top: '20%',
-          left: '20%',
-          y: backgroundY
-        }}
-      />
-      
-      {/* ── Layer 4: Floating Deities Flanking & Mobile Watermarks (Pro Illuminate Theme) ── */}
-      {/* Mobile Occult Deity Watermark (centered behind text on phones/tablets) */}
-      <div
-        className="absolute inset-0 flex items-center justify-center lg:hidden opacity-[0.05] pointer-events-none z-[10] mix-blend-screen"
-        style={{
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)',
-          maskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)'
-        }}
-      >
-        <div className="relative w-[320px] aspect-[4/5]">
-          <Image
-            src="/Images/hero_occult_deity.png"
-            alt="Occult watermark"
-            fill
-            className="object-contain"
-            sizes="320px"
-          />
-        </div>
-      </div>
-
-      {/* Mobile Bottom-Left Deity Frame */}
-      <motion.div
-        className="absolute left-0 bottom-6 w-[120px] sm:w-[150px] aspect-[4/5] pointer-events-none z-10 mix-blend-screen opacity-[0.16] block lg:hidden"
-        style={{
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)',
-          maskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)'
-        }}
-        animate={{
-          y: [0, -10, 0],
-          rotate: [0, 1.5, 0]
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
-        <Image
-          src="/Images/hero_occult_deity.png"
-          alt="Occult Deity Mobile"
-          fill
-          className="object-contain filter drop-shadow-[0_0_15px_rgba(197,168,92,0.1)]"
-          sizes="150px"
-        />
-      </motion.div>
-
-      {/* Mobile Bottom-Right Deity Frame */}
-      <motion.div
-        className="absolute right-0 bottom-6 w-[120px] sm:w-[150px] aspect-[4/5] pointer-events-none z-10 mix-blend-screen opacity-[0.20] block lg:hidden"
-        style={{
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)',
-          maskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)'
-        }}
-        animate={{
-          y: [0, 10, 0],
-          rotate: [0, -1.5, 0]
-        }}
-        transition={{
-          duration: 7,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 0.5
-        }}
-      >
-        <Image
-          src="/Images/hero_occult_pattern.png"
-          alt="Occult Pattern Mobile"
-          fill
-          className="object-contain filter drop-shadow-[0_0_15px_rgba(255,255,255,0.05)]"
-          sizes="150px"
-        />
-      </motion.div>
-
-      {/* Left Golden Deity (Desktop & Laptop) */}
-      <motion.div
-        className="absolute left-[1%] lg:left-[2%] xl:left-[3%] top-[22%] hidden lg:block w-[200px] xl:w-[280px] aspect-[4/5] pointer-events-none z-[13] mix-blend-screen opacity-40 xl:opacity-50"
-        style={{
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)',
-          maskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)'
-        }}
-        animate={{
-          y: [0, -15, 0],
-          rotate: [0, 2, 0]
-        }}
-        transition={{
-          duration: 7,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
-        <Image
-          src="/Images/hero_occult_deity.png"
-          alt="Occult Deity"
-          fill
-          className="object-contain filter drop-shadow-[0_0_20px_rgba(197,168,92,0.15)]"
-          sizes="280px"
-        />
-      </motion.div>
-
-      {/* Right Geometric Silhouette (Desktop & Laptop) */}
-      <motion.div
-        className="absolute right-[1%] lg:right-[2%] xl:right-[3%] top-[22%] hidden lg:block w-[200px] xl:w-[280px] aspect-[4/5] pointer-events-none z-[13] mix-blend-screen opacity-45 xl:opacity-55"
-        style={{
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)',
-          maskImage: 'radial-gradient(ellipse at center, black 35%, transparent 75%)'
-        }}
-        animate={{
-          y: [0, 15, 0],
-          rotate: [0, -2, 0]
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 0.5
-        }}
-      >
-        <Image
-          src="/Images/hero_occult_pattern.png"
-          alt="Occult Geometric Pattern"
-          fill
-          className="object-contain filter drop-shadow-[0_0_20px_rgba(255,255,255,0.08)]"
-          sizes="280px"
-        />
-      </motion.div>
-
-      {/* ── Layer 5: Slow floating tattoo sketches ── */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-[11]">
-        {floatingSketches.map((sketch, idx) => (
-          <motion.div
-            key={idx}
-            className="absolute hidden md:block"
-            style={{
-              top: sketch.top,
-              left: sketch.left,
-              width: sketch.size,
-              height: sketch.size
-            }}
-            animate={{
-              y: [0, -25, 0],
-              x: [0, 12, 0],
-              rotate: [0, 8, 0]
-            }}
-            transition={{
-              duration: 10 + idx * 2.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: sketch.delay
-            }}
-          >
-            {sketch.svg}
-          </motion.div>
-        ))}
-      </div>
-
-      {/* ── CENTERED HERO CONTENT ── */}
-      <div className="w-full max-w-5xl mx-auto px-6 text-center relative z-20 flex flex-col items-center">
-        
-        {/* Tagline */}
+      {/* ── Layer 1: Full-Bleed Background Slideshow Stage ── */}
+      <AnimatePresence mode="wait">
         <motion.div
-          initial={{ opacity: 0, y: -15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="order-2 lg:order-1 inline-flex items-center gap-3 mb-3"
+          key={activeSlide}
+          initial={{ opacity: 0, scale: 1.08 }}
+          animate={{ opacity: 1, scale: 1.0 }}
+          exit={{ opacity: 0, scale: 1.04 }}
+          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="absolute inset-0 w-full h-full"
         >
-          <div className="h-px w-6 bg-[var(--brand-gold)] opacity-50" />
-          {/* Small Occult Symbol in Tagline */}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-[var(--brand-gold)]">
-            <polygon points="12,3 3,20 21,20" />
-            <circle cx="12" cy="13" r="2" />
-          </svg>
-          <span className="text-[0.62rem] tracking-[0.35em] font-bold text-[var(--brand-gold)] uppercase">
-            Aquarius Luxury Tattoo Studio
+          <Image
+            src={heroSlides[activeSlide].image}
+            alt={heroSlides[activeSlide].tagline}
+            fill
+            priority
+            className={`object-cover object-center filter transition-all duration-700 ${
+              activeSlide === 0
+                ? 'brightness-[0.92] contrast-[1.08] opacity-100'
+                : 'brightness-[0.82] contrast-[1.1] opacity-95'
+            }`}
+            sizes="100vw"
+          />
+
+          {/* Luxury Gradient Dark Vignette Overlays for High-Contrast Readability */}
+          <div className={`absolute inset-0 z-10 transition-opacity duration-700 ${
+            activeSlide === 0
+              ? 'bg-gradient-to-t from-[#020202] via-[#020202]/30 to-[#020202]/50'
+              : 'bg-gradient-to-t from-[#020202] via-[#020202]/45 to-[#020202]/65'
+          }`} />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#020202]/70 via-transparent to-[#020202]/70 z-10" />
+          <div className="absolute inset-0 luxury-grain opacity-30 z-10 pointer-events-none" />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* ── Layer 2: Left Side Navigation Control & Slide Counter ── */}
+      <div className="absolute left-4 sm:left-10 lg:left-14 top-1/2 -translate-y-1/2 z-30 flex items-center gap-3">
+        <button
+          type="button"
+          onClick={prevSlide}
+          aria-label="Previous Slide"
+          className="group relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 hover:border-[var(--brand-gold)] bg-black/40 hover:bg-black/80 backdrop-blur-md flex items-center justify-center text-white/70 hover:text-white transition-all duration-300 hover:scale-110 shadow-lg"
+        >
+          <ChevronLeft size={22} className="group-hover:-translate-x-0.5 transition-transform" />
+        </button>
+        <span className="hidden md:inline-block text-[0.62rem] tracking-[0.25em] font-bold text-white/40 uppercase">
+          0{activeSlide + 1} <span className="text-[var(--brand-gold)]">/</span> 0{heroSlides.length}
+        </span>
+      </div>
+
+      {/* ── Layer 3: Right Side Navigation Control & Slide Counter ── */}
+      <div className="absolute right-4 sm:right-10 lg:right-14 top-1/2 -translate-y-1/2 z-30 flex items-center gap-3">
+        <span className="hidden md:inline-block text-[0.62rem] tracking-[0.25em] font-bold text-white/40 uppercase">
+          0{activeSlide + 1} <span className="text-[var(--brand-gold)]">/</span> 0{heroSlides.length}
+        </span>
+        <button
+          type="button"
+          onClick={nextSlide}
+          aria-label="Next Slide"
+          className="group relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 hover:border-[var(--brand-gold)] bg-black/40 hover:bg-black/80 backdrop-blur-md flex items-center justify-center text-white/70 hover:text-white transition-all duration-300 hover:scale-110 shadow-lg"
+        >
+          <ChevronRight size={22} className="group-hover:translate-x-0.5 transition-transform" />
+        </button>
+      </div>
+
+      {/* ── Layer 4: Center Stacked Masterpiece Typography (Yantra Style) ── */}
+      <div className="w-full max-w-6xl mx-auto px-6 text-center relative z-20 flex flex-col items-center justify-center flex-grow pt-10 pb-16">
+        
+        {/* Top Tagline */}
+        <motion.div
+          key={`tag-${activeSlide}`}
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="inline-flex items-center gap-2 mb-2 sm:mb-3"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-[var(--brand-gold)] animate-pulse" />
+          <span className="text-[0.62rem] sm:text-[0.72rem] tracking-[0.35em] font-bold text-[var(--brand-gold)] uppercase">
+            {heroSlides[activeSlide].tagline}
           </span>
-          <div className="h-px w-6 bg-[var(--brand-gold)] opacity-50" />
+          <Sparkles className="w-3.5 h-3.5 text-[var(--brand-gold)] animate-pulse" />
         </motion.div>
 
-        {/* Rotating Headline with Ink Reveal */}
-        <div className="order-3 lg:order-2 min-h-[90px] sm:min-h-[135px] md:min-h-[150px] flex items-center justify-center relative w-full">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={headlineIndex}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="flex flex-wrap gap-x-4 gap-y-1 sm:gap-y-3 justify-center text-center max-w-4xl"
-            >
-              {headlines[headlineIndex].split(" ").map((word, wordIdx) => (
-                <span key={wordIdx} className="inline-block whitespace-nowrap">
-                  {word.split("").map((char, charIdx) => {
-                    const isSpecial = char === '.' || char === '!' || char === '&'
-                    return (
-                      <motion.span
-                        key={charIdx}
-                        variants={letterVariants}
-                        className={`inline-block font-black tracking-tight text-[clamp(1.9rem,4.2vw,3.6rem)] leading-[0.95] drop-shadow-[0_0_12px_rgba(197,168,92,0.15)] ${
-                          isSpecial ? 'text-[var(--brand-gold)]' : 'text-[#F5F5F5]'
-                        }`}
-                        style={{ fontFamily: 'var(--font-display)' }}
-                        transition={{
-                          delay: (wordIdx * 4 + charIdx) * 0.035
-                        }}
-                      >
-                        {char}
-                      </motion.span>
-                    )
-                  })}
-                </span>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+        {/* Stacked Giant Typography with Script Overlay */}
+        <div className="relative flex flex-col items-center justify-center select-none my-1 sm:my-2">
+          
+          {/* Top Block Line */}
+          <motion.h1
+            key={`h1-${activeSlide}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] font-black uppercase tracking-tight text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)] font-display leading-[0.9]"
+          >
+            {heroSlides[activeSlide].headlineMain1} {heroSlides[activeSlide].headlineMain2}
+          </motion.h1>
+
+          {/* Overlaid Cursive Script (Diagonal handwritten calligraphic overlay) */}
+          <motion.span
+            key={`script-${activeSlide}`}
+            initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
+            animate={{ opacity: 1, scale: 1, rotate: -6 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="font-script text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-[var(--brand-gold)] -my-3 sm:-my-6 lg:-my-8 drop-shadow-[0_0_30px_rgba(197,168,92,0.8)] z-20 transform select-none"
+          >
+            {heroSlides[activeSlide].scriptOverlay}
+          </motion.span>
+
+          {/* Bottom Block Line */}
+          <motion.h2
+            key={`h2-${activeSlide}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] font-black uppercase tracking-tight text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)] font-display leading-[0.9]"
+          >
+            {heroSlides[activeSlide].headlineMain3}
+          </motion.h2>
+
         </div>
 
-        {/* Subheadline */}
+        {/* Subheadline Text */}
         <motion.p
+          key={`sub-${activeSlide}`}
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.95 }}
-          className="order-4 lg:order-3 mt-3 text-[#9A9A9A] text-xs md:text-sm font-light leading-[1.6] max-w-xl px-4 lg:px-0"
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="mt-3 text-white/70 text-xs sm:text-sm font-light leading-relaxed max-w-xl px-4"
         >
-          Custom tattoos crafted by Bangalore's elite artists. From fine line designs to full sleeve masterpieces, every piece is designed exclusively for you in our sanctum.
+          {heroSlides[activeSlide].subtext}
         </motion.p>
 
-        {/* CTAs */}
+        {/* CTA Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.95, duration: 0.8 }}
-          className="order-5 lg:order-4 mt-6 flex flex-col sm:flex-row gap-4 items-center justify-center w-full px-6 sm:px-0"
+          transition={{ delay: 0.45, duration: 0.8 }}
+          className="mt-6 flex flex-col sm:flex-row gap-4 items-center justify-center z-30"
         >
-          {/* Primary CTA (Magnetic Interaction) */}
           <motion.div
             ref={ctaMag.ref}
             animate={{ x: ctaMag.offset.x, y: ctaMag.offset.y }}
             transition={{ type: 'spring', stiffness: 180, damping: 15, mass: 0.1 }}
             onMouseMove={ctaMag.onMouseMove}
             onMouseLeave={ctaMag.onMouseLeave}
-            className="inline-flex w-full sm:w-auto"
           >
             <Link
-              href="/book"
-              className="group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 bg-[var(--brand-gold)] text-black text-[0.6rem] tracking-[0.25em] uppercase font-bold hover:shadow-[0_0_35px_rgba(197,168,92,0.45)] hover:scale-[1.03] transition-all duration-300 w-full sm:w-auto"
+              href={heroSlides[activeSlide].link}
+              className="group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 bg-[var(--brand-gold)] text-black text-[0.68rem] tracking-[0.25em] uppercase font-bold hover:shadow-[0_0_35px_rgba(197,168,92,0.6)] hover:scale-[1.03] transition-all duration-300 rounded-sm"
             >
               <span>Book Consultation</span>
               <ArrowRight
-                size={14}
+                size={15}
                 className="group-hover:translate-x-1.5 transition-transform duration-300 flex-shrink-0 stroke-[2.5px]"
               />
             </Link>
           </motion.div>
-
-          {/* Secondary CTA (Animated border glow) */}
-          <Link
-            href="#showcase"
-            className="relative group px-8 py-3.5 overflow-hidden border border-[var(--brand-gold)]/20 hover:border-[var(--brand-gold)] transition-all duration-500 flex items-center justify-center w-full sm:w-auto"
-          >
-            {/* Border shine animation */}
-            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[var(--brand-gold)]/15 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out" />
-            <span className="text-[0.65rem] tracking-[0.28em] uppercase font-semibold text-[#9A9A9A] group-hover:text-white transition-colors duration-300">
-              Explore Portfolio
-            </span>
-          </Link>
-        </motion.div>
-
-        {/* ── Visual Portal: Rotating Occult Circular Slideshow ── */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.2, duration: 1.0 }}
-          className="order-1 lg:order-5 relative mt-0 mb-6 lg:mt-10 lg:mb-0 w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] lg:w-[280px] lg:h-[280px] flex items-center justify-center z-20 group/portal"
-        >
-          {/* Giant All-Seeing Eye outline backdrop (circular slideshow acts as the iris/pupil) */}
-          <div className="absolute inset-[-45px] sm:inset-[-70px] pointer-events-none z-10 opacity-25 group-hover/portal:opacity-40 transition-opacity duration-700 select-none">
-            <svg viewBox="0 0 100 100" fill="none" stroke="var(--brand-gold)" strokeWidth="0.25" className="w-full h-full text-[var(--brand-gold)]">
-              <path d="M 5,50 C 25,15 75,15 95,50" />
-              <path d="M 5,50 C 25,85 75,85 95,50" />
-              <circle cx="50" cy="50" r="28" strokeDasharray="1 1" />
-              <circle cx="50" cy="50" r="24" />
-              {Array.from({ length: 16 }).map((_, i) => {
-                const angle = (i * 22.5 * Math.PI) / 180
-                const x1 = 50 + 28 * Math.cos(angle)
-                const y1 = 50 + 28 * Math.sin(angle)
-                const x2 = 50 + 48 * Math.cos(angle)
-                const y2 = 50 + 48 * Math.sin(angle)
-                if (i === 0 || i === 8) return null
-                return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth="0.2" />
-              })}
-            </svg>
-          </div>
-          {/* Outer rotating ring (clockwise) */}
-          <motion.div
-            className="absolute inset-[-10px] pointer-events-none z-30 opacity-40 group-hover/portal:opacity-70 transition-opacity duration-700"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          >
-            <svg viewBox="0 0 100 100" fill="none" stroke="var(--brand-gold)" strokeWidth="0.2" className="w-full h-full">
-              <circle cx="50" cy="50" r="48" strokeDasharray="3 3" />
-              <polygon points="50,5 11,73 89,73" strokeWidth="0.15" />
-              <circle cx="50" cy="5" r="1" fill="var(--brand-gold)" />
-              <circle cx="11" cy="73" r="1" fill="var(--brand-gold)" />
-              <circle cx="89" cy="73" r="1" fill="var(--brand-gold)" />
-            </svg>
-          </motion.div>
-
-          {/* Inner rotating ring (counter-clockwise) */}
-          <motion.div
-            className="absolute inset-[-3px] pointer-events-none z-30 opacity-50 group-hover/portal:opacity-80 transition-opacity duration-700"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          >
-            <svg viewBox="0 0 100 100" fill="none" stroke="var(--brand-gold)" strokeWidth="0.25" className="w-full h-full">
-              <circle cx="50" cy="50" r="44" strokeDasharray="1 2" />
-              <polygon points="50,95 11,27 89,27" strokeWidth="0.2" />
-              <circle cx="50" cy="50" r="32" />
-            </svg>
-          </motion.div>
-
-          {/* Main Circular Portal frame */}
-          <div className="relative w-full h-full rounded-full overflow-hidden border border-[var(--brand-gold)]/40 p-1.5 group-hover/portal:border-[var(--brand-gold)]/80 transition-colors duration-500 bg-[#080808] shadow-[0_0_50px_rgba(197,168,92,0.25)]">
-            <div className="relative w-full h-full rounded-full overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={slideIndex}
-                  initial={{ opacity: 0, scale: 1.15 }}
-                  animate={{ opacity: 1, scale: 1.05 }}
-                  exit={{ opacity: 0, scale: 1.0 }}
-                  transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="absolute inset-0 w-full h-full"
-                >
-                  <Image
-                    src={slides[slideIndex].image}
-                    alt={slides[slideIndex].title}
-                    fill
-                    priority={slideIndex === 0}
-                    className="object-cover transition-transform duration-[4000ms] ease-out scale-100 group-hover/portal:scale-105"
-                    sizes="(min-width: 1024px) 280px, (min-width: 640px) 320px, 260px"
-                  />
-                  {/* Subtle bottom-only darkening overlay for text contrast */}
-                  <div className="absolute bottom-0 left-0 right-0 h-[45%] bg-gradient-to-t from-black/95 to-transparent z-10" />
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Slider captions at bottom of portal */}
-              <div className="absolute bottom-6 left-0 right-0 z-30 flex flex-col items-center text-center px-4">
-                <motion.p
-                  key={`cat-${slideIndex}`}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-[0.48rem] tracking-[0.2em] text-[var(--brand-gold)] uppercase font-bold mb-0.5"
-                >
-                  {slides[slideIndex].title}
-                </motion.p>
-                <motion.h4
-                  key={`det-${slideIndex}`}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-white text-[0.62rem] font-bold font-display uppercase tracking-widest max-w-[170px]"
-                >
-                  {slides[slideIndex].details}
-                </motion.h4>
-              </div>
-
-              {/* Ticks inside the portal */}
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1">
-                {slides.map((_, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    suppressHydrationWarning
-                    onClick={() => setSlideIndex(i)}
-                    className="w-2.5 h-0.75 bg-white/20 transition-all duration-300 relative rounded-sm"
-                    aria-label={`Go to slide ${i + 1}`}
-                  >
-                    {slideIndex === i && (
-                      <motion.div
-                        layoutId="activePortalTick"
-                        className="absolute inset-0 bg-[var(--brand-gold)] rounded-sm"
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                      />
-                    )}
-                  </button>
-                ))}
-              </div>
-
-            </div>
-          </div>
         </motion.div>
 
       </div>
 
-      {/* Scroll indicator with gold highlight */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 hidden md:flex flex-col items-center gap-2">
-        <span className="text-[0.52rem] tracking-[0.4em] uppercase text-[#9A9A9A]">
-          SCROLL TO EXPLORE
-        </span>
-        <div className="w-px h-10 bg-white/10 relative overflow-hidden">
-          <motion.div
-            className="absolute left-0 w-full h-[40%] bg-[var(--brand-gold)]"
-            animate={{ top: ['0%', '150%'] }}
-            transition={{ duration: 2.0, repeat: Infinity, ease: "easeInOut" }}
+      {/* ── Layer 5: Traditional Ink Wave Vector Frame at Bottom ── */}
+      <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none z-20 pointer-events-none opacity-90">
+        <svg
+          className="relative block w-full h-[60px] sm:h-[90px] md:h-[110px] text-[#020202]"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          fill="currentColor"
+        >
+          {/* Subtle golden wave highlight backdrop */}
+          <path
+            d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,60 L1200,120 L0,120 Z"
+            opacity="0.3"
+            fill="var(--brand-gold)"
           />
-        </div>
+          {/* Main solid dark wave border */}
+          <path
+            d="M0,30 C200,100 450,10 650,70 C850,120 1050,30 1200,75 L1200,120 L0,120 Z"
+          />
+        </svg>
+      </div>
+
+      {/* ── Layer 6: Bottom Center Explore Link Above Wave ── */}
+      <div className="relative z-30 pb-5">
+        <Link
+          href="/gallery"
+          className="group inline-flex items-center gap-2 text-white/70 hover:text-[var(--brand-gold)] text-[0.68rem] tracking-[0.3em] font-bold uppercase transition-colors duration-300 drop-shadow-md"
+        >
+          <span>Explore Tattoos</span>
+          <ChevronRight size={14} className="text-[var(--brand-gold)] group-hover:translate-x-1 transition-transform" />
+        </Link>
       </div>
 
     </section>
