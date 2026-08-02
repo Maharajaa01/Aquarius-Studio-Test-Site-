@@ -3,6 +3,9 @@ const nextConfig = {
   devIndicators: false,
   compress: true,
   reactStrictMode: true,
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion', 'date-fns'],
+  },
   images: {
     qualities: [50, 75, 85],
     formats: ['image/avif', 'image/webp'],

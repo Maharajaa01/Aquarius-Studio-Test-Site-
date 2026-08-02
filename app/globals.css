@@ -313,6 +313,12 @@
 
 /* Mobile performance optimization - disable heavy animations on mobile */
 @media (max-width: 768px) {
+  .luxury-grain::after {
+    animation: none !important;
+    transform: none !important;
+    opacity: 0.02;
+  }
+
   @keyframes slideUp {
     from {
       opacity: 0;

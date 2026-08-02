@@ -258,7 +258,9 @@ export default function HeroSection() {
 
   // Canvas-based cinematic smoke simulation
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const isMobile = window.matchMedia('(max-width: 767px)').matches
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (isMobile || prefersReducedMotion) return
 
     const canvas = smokeCanvasRef.current
     if (!canvas) return
@@ -339,7 +341,7 @@ export default function HeroSection() {
       {/* ── Layer 3: Glowing parallax background blur elements ── */}
       <motion.div
         aria-hidden="true"
-        className="absolute pointer-events-none rounded-full blur-[140px] opacity-[0.16] z-[10]"
+        className="absolute pointer-events-none rounded-full blur-[60px] sm:blur-[140px] opacity-[0.16] z-[10]"
         style={{
           width: 'clamp(280px, 60vw, 600px)',
           height: 'clamp(280px, 60vw, 600px)',

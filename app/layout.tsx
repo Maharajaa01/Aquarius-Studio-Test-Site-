@@ -5,12 +5,13 @@ import RouteLoadingIndicator from '@/components/route-loading-indicator'
 import Script from 'next/script'
 import './globals.css'
 
-const geist = Geist({ subsets: ["latin"], variable: '--font-geist-sans' });
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: '--font-geist-mono' });
+const geist = Geist({ subsets: ["latin"], variable: '--font-geist-sans', display: 'swap' });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: '--font-geist-mono', display: 'swap' });
 const cinzel = Cinzel({
   subsets: ['latin'],
   weight: ['400', '700', '900'],
   variable: '--font-display',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
