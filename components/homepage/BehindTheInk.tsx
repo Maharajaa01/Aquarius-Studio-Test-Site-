@@ -24,7 +24,7 @@ const stories = [
     id: 3,
     title: 'Spiritual Awakening',
     description: 'A full sleeve combining geometric patterns with Lord Shiva elements.',
-    image: '/Images/lord_shiva_hand_tattoo.JPG',
+    image: '/Images/lord_shiva_hand_tattoo.webp',
     link: '/gallery',
   },
 ]

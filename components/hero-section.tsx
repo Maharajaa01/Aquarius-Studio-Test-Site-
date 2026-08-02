@@ -717,6 +717,8 @@ export default function HeroSection() {
                 {slides.map((_, i) => (
                   <button
                     key={i}
+                    type="button"
+                    suppressHydrationWarning
                     onClick={() => setSlideIndex(i)}
                     className="w-2.5 h-0.75 bg-white/20 transition-all duration-300 relative rounded-sm"
                     aria-label={`Go to slide ${i + 1}`}

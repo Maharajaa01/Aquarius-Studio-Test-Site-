@@ -13,27 +13,27 @@ const studioItems: StudioItem[] = [
   {
     type: 'video',
     src: '/studio/home_page_video.mp4',
-    poster: '/studio/studio.JPG',
+    poster: '/studio/studio.webp',
     alt: 'Stunning Chest Tattoo Showcase Reel'
   },
   {
     type: 'image',
-    src: '/studio/studio.JPG',
+    src: '/studio/studio.webp',
     alt: 'Luxury Tattoo Studio Environment'
   },
   {
     type: 'image',
-    src: '/studio/tattoo_studio.JPG',
+    src: '/studio/tattoo_studio.webp',
     alt: 'Elite Artist Workstation'
   },
   {
     type: 'image',
-    src: '/studio/tattoo_studio_img1.JPG',
+    src: '/studio/tattoo_studio_img1.webp',
     alt: 'High-Precision Tattooing Equipment'
   },
   {
     type: 'image',
-    src: '/studio/IMG_1111.JPG',
+    src: '/studio/IMG_1111.webp',
     alt: 'Comfortable Client Lounge'
   }
 ]

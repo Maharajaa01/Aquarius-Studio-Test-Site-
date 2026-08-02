@@ -1,29 +1,36 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import Navigation from '@/components/navigation'
 import HeroSection from '@/components/hero-section'
 import OfferPopup from '@/components/offer-popup'
-import AmbientParticles from '@/components/ambient-particles'
+
+// Critical Above-The-Fold / Lightweight Global UI
 import CustomCursor from '@/components/custom-cursor'
-import TattooShowcase from '@/components/tattoo-showcase'
-import StatsSection from '@/components/stats-section'
-import StylesSection from '@/components/styles-section'
-import ArtistSpotlight from '@/components/artist-spotlight'
-import StudioSection from '@/components/studio-section'
-import ServicesSection from '@/components/services-section'
-import TestimonialsSection from '@/components/testimonials-section'
-import FAQSection from '@/components/faq-section'
-import BookingCTA from '@/components/booking-cta'
-import ContactSection from '@/components/contact-section'
-import Footer from '@/components/footer'
 import FloatingBookButton from '@/components/floating-book-button'
 
-import BehindTheInk from '@/components/homepage/BehindTheInk'
-import TrustAndHygiene from '@/components/homepage/TrustAndHygiene'
-import CoverupSlider from '@/components/homepage/CoverupSlider'
-import FinancialFlexibility from '@/components/homepage/FinancialFlexibility'
-import AnniversaryOffer from '@/components/homepage/AnniversaryOffer'
+// Section Loading Skeletons
+const SectionSkeleton = () => <div className="w-full min-h-[300px] bg-black/20 animate-pulse" />
+
+// Below-the-fold components dynamically imported for faster initial page render
+const AmbientParticles = dynamic(() => import('@/components/ambient-particles'), { ssr: false })
+const AnniversaryOffer = dynamic(() => import('@/components/homepage/AnniversaryOffer'), { loading: SectionSkeleton })
+const TattooShowcase = dynamic(() => import('@/components/tattoo-showcase'), { loading: SectionSkeleton })
+const StatsSection = dynamic(() => import('@/components/stats-section'), { loading: SectionSkeleton })
+const StylesSection = dynamic(() => import('@/components/styles-section'), { loading: SectionSkeleton })
+const ArtistSpotlight = dynamic(() => import('@/components/artist-spotlight'), { loading: SectionSkeleton })
+const BehindTheInk = dynamic(() => import('@/components/homepage/BehindTheInk'), { loading: SectionSkeleton })
+const StudioSection = dynamic(() => import('@/components/studio-section'), { loading: SectionSkeleton })
+const TrustAndHygiene = dynamic(() => import('@/components/homepage/TrustAndHygiene'), { loading: SectionSkeleton })
+const ServicesSection = dynamic(() => import('@/components/services-section'), { loading: SectionSkeleton })
+const CoverupSlider = dynamic(() => import('@/components/homepage/CoverupSlider'), { loading: SectionSkeleton })
+const TestimonialsSection = dynamic(() => import('@/components/testimonials-section'), { loading: SectionSkeleton })
+const FAQSection = dynamic(() => import('@/components/faq-section'), { loading: SectionSkeleton })
+const FinancialFlexibility = dynamic(() => import('@/components/homepage/FinancialFlexibility'), { loading: SectionSkeleton })
+const BookingCTA = dynamic(() => import('@/components/booking-cta'), { loading: SectionSkeleton })
+const ContactSection = dynamic(() => import('@/components/contact-section'), { loading: SectionSkeleton })
+const Footer = dynamic(() => import('@/components/footer'), { loading: SectionSkeleton })
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -32,7 +39,7 @@ export default function Home() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -96,3 +103,4 @@ export default function Home() {
     </div>
   )
 }
+
