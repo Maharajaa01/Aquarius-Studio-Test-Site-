@@ -19,7 +19,7 @@ const stylesList: TattooStyle[] = [
     name: "Realism",
     key: "realism",
     description: "Life-like portraits, wildlife, and structural figures rendered with absolute depth, soft gradients, and photographic precision.",
-    image: "/tattoos/portrait/413ba6f4cfc3c72e1f7b6d7085082a59.jpg",
+    image: "/tattoos/portrait/realism.jpg",
     expert: "Aravind",
     sessionEstimate: "4 - 8 Hours"
   },

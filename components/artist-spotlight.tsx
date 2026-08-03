@@ -77,7 +77,7 @@ export default function ArtistSpotlight() {
             Artist Spotlight
           </h2>
           <p className="text-[#9A9A9A] max-w-xl text-sm md:text-base font-light leading-relaxed">
-            Meet Bangalore's elite designers. Our artists do not copy designs; they work with you to engineer authentic statements tailored exclusively for your skin.
+            Meet Bangalore's Best designers. Our artists do not copy designs; they work with you to engineer authentic statements tailored exclusively for your skin.
           </p>
         </div>
 

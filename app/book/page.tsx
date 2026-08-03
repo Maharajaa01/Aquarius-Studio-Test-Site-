@@ -42,35 +42,22 @@ export default function BookingPage() {
     setStatus('loading')
 
     try {
-      const payload = {
-        ...formData,
-        appointment_date: selectedDate ? format(selectedDate, 'yyyy-MM-dd') : '',
-        appointment_time: selectedTime ? format(selectedTime, 'HH:mm') : ''
-      }
-
-      const response = await fetch('https://admin.dreamtechsolution.com/api/method/create_tattoo_lead', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      })
-
-      const data = await response.json()
-
-      if (data.message && data.message.status === 'success') {
+      const dateStr = selectedDate ? format(selectedDate, 'dd MMM yyyy') : 'Not specified'
+      const timeStr = selectedTime ? format(selectedTime, 'h:mm aa') : 'Not specified'
+      
+      const message = `Name: ${formData.name1}\nMobile Number: ${formData.mobile_number}\nPreferred Date: ${dateStr}\nPreferred Time: ${timeStr}`
+      const whatsappNumber = '919663074724'
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`
+      
+      window.open(whatsappUrl, '_blank')
+      
+      setTimeout(() => {
         setStatus('success')
-      } else if (data.status === 'success') {
-        setStatus('success')
-      } else {
-        setStatus('error')
-        setErrorMessage(data.message?.message || data.message || 'Something went wrong. Please try again.')
-      }
+      }, 500)
     } catch (error) {
       console.error('Booking Error:', error)
       setStatus('error')
-      setErrorMessage('Failed to connect to the server. Please try again.')
+      setErrorMessage('Failed to process request. Please try again.')
     }
   }
 
@@ -195,7 +182,7 @@ export default function BookingPage() {
                   <span className="text-[var(--brand-gold)] italic">Our Masterpiece.</span>
                 </h2>
                 <p className="text-white/60 text-sm leading-relaxed max-w-sm">
-                  Step into a realm of elite artistry. Every consultation is the first step towards a permanent legacy worn on your skin.
+                  Step into a realm of Best artistry. Every consultation is the first step towards a permanent legacy worn on your skin.
                 </p>
               </div>
             </div>

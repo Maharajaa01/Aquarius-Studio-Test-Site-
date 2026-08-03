@@ -48,7 +48,7 @@ export default function CalculatorPage() {
 
   const calculatePrice = (): { display: string; raw: number } => {
     if (type === 'piercing') {
-      return { display: '₹1,500 – ₹2,500', raw: 1500 }
+      return { display: '₹550 – ₹5000', raw: 1500 }
     }
     // Tattoo price: standard rate of 599 per sq in, with a minimum of 1500
     const price = Math.max(area * 599, 1500)

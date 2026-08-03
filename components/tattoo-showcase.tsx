@@ -16,39 +16,46 @@ interface ShowcaseTattoo {
 
 const featuredTattoos: ShowcaseTattoo[] = [
   {
-    name: "Sacred Geometric Sleeve",
+    name: "Buddha Enlightenment Piece",
     artist: "Aswin",
-    style: "Geometric / Mandala",
+    style: "Black & Grey Realism",
     hours: "24 Hours",
-    image: "/tattoos/geometric/full_sleeve_geomentric.png"
+    image: "/featured_work/budha.png"
   },
   {
-    name: "Crimson Ryu Backpiece",
+    name: "Japanese Traditional Sleeve",
     artist: "Aravind",
     style: "Japanese Irezumi",
     hours: "36 Hours",
-    image: "/tattoos/japanese/koi_fish.jpg"
+    image: "/featured_work/japanesh_tattoo.jpg"
+  },
+  {
+    name: "Majestic Lion Realism",
+    artist: "Aravind",
+    style: "Black & Grey Realism",
+    hours: "18 Hours",
+    image: "/featured_work/lion.jpg"
+  },
+  {
+    name: "Asgardian Lion Portrait",
+    artist: "Aswin",
+    style: "Black & Grey Realism",
+    hours: "15 Hours",
+    image: "/featured_work/lion_ascard.jpg"
+  },
+  {
+    name: "Phoenix Hand Piece",
+    artist: "Aravind",
+    style: "Neo Traditional",
+    hours: "8 Hours",
+    image: "/featured_work/pheniox_hand.jpg"
   },
   {
     name: "Hyper-Realism Portrait",
     artist: "Aravind",
     style: "Black & Grey Realism",
-    hours: "18 Hours",
-    image: "/tattoos/portrait/potraid.jpg"
-  },
-  {
-    name: "Minimalist Celestial Forearm",
-    artist: "Aswin",
-    style: "Fine Line & Minimalist",
-    hours: "6 Hours",
-    image: "/tattoos/minimal/0fb4a0c5514c979c721761cae40c8505.jpg"
-  },
-  {
-    name: "Industrial Core Machine Piece",
-    artist: "Aravind",
-    style: "Bio-Mechanical Realism",
-    hours: "15 Hours",
-    image: "/tattoos/blackwork/dark_swade.jpg"
+    hours: "20 Hours",
+    image: "/featured_work/portait.jpg"
   }
 ]
 
